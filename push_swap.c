@@ -35,15 +35,28 @@ int	is_ascending(t_stack *stack)
 
 void	push_swap(t_stack *a, t_stack *b)
 {
-	while (!is_ascending(a) || !is_ascending(b))
+	int	ops;
+
+	ops = 0;
+	while (!is_ascending(a) || b->len != 0)
 	{
 		p(a, b);
 		if (a->numbers[0] > a->numbers[1])
+		{
+			ops++;
 			swap(a);
+		}
+		ops++;
 		push(a, b);
 		if (a->len == 0)
+		{
 			while (b->len != 0)
+			{
+				ops++;
 				push(b, a);
+			}
+		}
 	}
 	p(a,b);
+	printf("Ops: %d\n", ops);
 }
