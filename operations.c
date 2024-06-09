@@ -1,19 +1,40 @@
 #include "push_swap.h"
-
-void	swap(t_stacks stacks, char c)
+#define RIGHT 1
+#define LEFT -1
+void	shift(t_stack *stack, int direction)
 {
-	int	tmp;
-	int	*stack;
+	int i;
 
-	if (c == 'a')
-		stack = stacks.stack_a;
-	else if (c == 'b')
-		stack = stacks.stack_b;
-	tmp = stack[0];
-	stack[0] = stack[1];
-	stack[1] = tmp;
+	if (direction == RIGHT)
+	{
+		i = stack->len;
+		while (i > 0)
+			stack->numbers[i] = stack->numbers[--i];
+		stack->len++;
+	}
+	else if (direction == LEFT)
+	{
+		i = 0;
+		while (i < stack->len)
+			stack->numbers[i] = stack->numbers[++i];
+		stack->len--;
+	}
 }
 
-void	push(t_stacks stacks, char c)
+void	swap(t_stacks *stack)
 {
-	
+	int	tmp;
+	int	*numbers;
+
+	numbers = stack->numbers;
+	tmp = numbers[0];
+	numbers[0] = numbers[1];
+	numbers[1] = tmp;
+}
+
+void	push(t_stack *from, t_stack *to)
+{
+	shift(to, RIGHT);
+	to->numbers[0] = from->numbers[0];
+	shift(from, LEFT);
+}
