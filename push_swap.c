@@ -1,22 +1,22 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void	print_stack(t_stack *stack)
-{
-	int i = 0;
-	printf("Length: %d\n", stack->len);
-	while (i < stack->len)
-		printf("%d ", stack->numbers[i++]);
-	printf("\n");
-}
-
 void	p(t_stack *a, t_stack *b)
 {
-	printf("========\n");
-	printf("Stack a:\n");
-	print_stack(a);
-	printf("Stack b:\n");
-	print_stack(b);
+	int i = 0;
+
+	while (i < a->len || i < b->len)
+	{
+		if (i < a->len)
+			printf("%d\t", a->numbers[i]);
+		else
+			printf("  \t");
+		if (i < b->len)
+			printf("%d", b->numbers[i]);
+		printf("\n");
+		i++;
+	}
+	printf("==========\na\tb\n------------------------\n");
 }
 
 int	is_ascending(t_stack *stack)
