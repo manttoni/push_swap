@@ -16,16 +16,21 @@ void	shift(t_stack *stack, int direction)
 	{
 		i = 0;
 		while (i < stack->len)
-			stack->numbers[i] = stack->numbers[++i];
+		{
+			stack->numbers[i] = stack->numbers[i + 1];
+			i++;
+		}
 		stack->len--;
 	}
 }
 
-void	swap(t_stacks *stack)
+void	swap(t_stack *stack)
 {
 	int	tmp;
 	int	*numbers;
 
+	if (stack->len < 2)
+		return ;
 	numbers = stack->numbers;
 	tmp = numbers[0];
 	numbers[0] = numbers[1];
@@ -34,6 +39,8 @@ void	swap(t_stacks *stack)
 
 void	push(t_stack *from, t_stack *to)
 {
+	if (from->len == 0)
+		return ;
 	shift(to, RIGHT);
 	to->numbers[0] = from->numbers[0];
 	shift(from, LEFT);

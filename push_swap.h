@@ -7,10 +7,11 @@ typedef struct s_stack
 {
 	int	*numbers;
 	int	len;
-}	t_stack
+}	t_stack;
 
 
-void	push_swap(int *stack_a, int *stack_b);
-void	swap(t_stack stack);
+void	push_swap(t_stack *a, t_stack *b);
+void	swap(t_stack *stack);
+void	push(t_stack *from, t_stack *to);
 
 #endif

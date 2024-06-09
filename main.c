@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		a->numbers[i] = ft_atoi(argv[i + 1]);
+		i++;
 	}
 	push_swap(a, b);
 	free_everything(a, b);
