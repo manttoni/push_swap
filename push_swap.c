@@ -1,5 +1,6 @@
 #include "push_swap.h"
 #include <stdio.h>
+#include <time.h>
 
 void	p(t_stack *a, t_stack *b)
 {
@@ -38,25 +39,29 @@ void	push_swap(t_stack *a, t_stack *b)
 	int	ops;
 
 	ops = 0;
+	p(a,b);
 	while (!is_ascending(a) || b->len != 0)
 	{
-		p(a, b);
-		if (a->numbers[0] > a->numbers[1])
+		if (a->numbers[0] > a->numbers[1] && a->len >= 2)
 		{
 			ops++;
 			swap(a);
+			p(a,b);
+			continue;
 		}
 		ops++;
 		push(a, b);
+		p(a,b);
 		if (a->len == 0)
 		{
 			while (b->len != 0)
 			{
 				ops++;
 				push(b, a);
+				p(a,b);
 			}
 		}
 	}
 	p(a,b);
-	printf("Ops: %d\n", ops);
+	printf("Ops: %d\nTime: %fms\n", ops, 1000 * ((double)clock() / CLOCKS_PER_SEC));
 }

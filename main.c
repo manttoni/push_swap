@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		return (1);
 	a = malloc(sizeof(t_stack));
 	b = malloc(sizeof(t_stack));
-	a->len = argc - 1;
+	a->len = 0;
 	b->len = 0;
 	a->numbers = malloc((argc - 1) * sizeof(int));
 	b->numbers = malloc((argc - 1) * sizeof(int));
@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		a->numbers[i] = ft_atoi(argv[i + 1]);
+		a->len++;
 		i++;
 	}
 	push_swap(a, b);
