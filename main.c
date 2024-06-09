@@ -38,25 +38,39 @@ static int	validate_int(char *s)
 	return (len <= 10);
 }
 
+void	free_everything(t_stack *a, t_stack *b)
+{
+	free(a->numbers);
+	free(b->numbers);
+	free(a);
+	free(b);
+}
+
 int	main(int argc, char **argv)
 {
-	int	*stack_a;
-	int	*stack_b;
 	int	i;
+	t_stack	*a;
+	t_stack	*b;
 
-	i = 0;
 	if (argc < 2)
 		return (1);
-	stack_a = malloc((argc - 1) * sizeof(int));
-	stack_b = malloc((argc - 1) * sizeof(int));
+	a = malloc(sizeof(t_stack));
+	b = malloc(sizeof(t_stack));
+	a->len = argc - 1;
+	b->len = 0;
+	a->numbers = malloc((argc - 1) * sizeof(int));
+	b->numbers = malloc((argc - 1) * sizeof(int));
+	i = 0;
 	while (i < argc - 1)
 	{
-		if (!validate(*argv))
+		if (!validate_int(argv[i + 1]))
+		{
+			free_everything(a, b);
 			return (1);
-		stack_a[i++] = ft_atoi(*(++argv));
+		}
+		a->numbers[i] = ft_atoi(argv[i + 1]);
 	}
-	push_swap(stack_a, stack_b);
-	free(stack_a);
-	free(stack_b);
+	push_swap(a, b);
+	free_everything(a, b);
 	return (0);
 }
