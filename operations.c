@@ -1,7 +1,8 @@
 #include "push_swap.h"
 #define RIGHT 1
 #define LEFT -1
-void	shift(t_stack *stack, int direction)
+
+static void	shift(t_stack *stack, int direction)
 {
 	int i;
 
