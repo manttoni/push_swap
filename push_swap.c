@@ -10,7 +10,7 @@ void	print_stack(t_stack *stack)
 	printf("\n");
 }
 
-void	print_stacks(t_stack *a, t_stack *b)
+void	p(t_stack *a, t_stack *b)
 {
 	printf("Stack a:\n");
 	print_stack(a);
@@ -20,10 +20,9 @@ void	print_stacks(t_stack *a, t_stack *b)
 
 void	push_swap(t_stack *a, t_stack *b)
 {
-	print_stacks(a, b);
-	swap(a);
-	swap(b);
-	print_stacks(a, b);
-	push(a, b);
-	print_stacks(a, b);
+	p(a, b);
+	rotate(a);
+	p(a,b);
+	rotate_reverse(a);
+	p(a, b);
 }
