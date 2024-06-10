@@ -1,4 +1,6 @@
 #include "push_swap.h"
+#include <time.h>
+#include <stdio.h>
 
 /* Compare top of stacks
  * Return
@@ -27,4 +29,5 @@ void	push_swap(t_stack *a, t_stack *b)
 	while (b->len != 0)
 		ops += push(b, a);
 	ft_printf("Ops: %d\n", ops);
+	printf("Time: %f ms\n", 1000 * ((double)clock() / CLOCKS_PER_SEC));
 }
