@@ -65,7 +65,6 @@ void	push_swap(t_stack *a, t_stack *b)
 			rotate(a);
 			push(b, a);
 			rotate_reverse(a);
-			p(a, b);
 			ops += 3;
 		}
 		if (a->len == 0)
@@ -78,6 +77,5 @@ void	push_swap(t_stack *a, t_stack *b)
 			}
 		}
 	}
-	p(a,b);
 	printf("Ops: %d\nTime: %fms\n", ops, 1000 * ((double)clock() / CLOCKS_PER_SEC));
 }
