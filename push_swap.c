@@ -4,7 +4,6 @@
 
 void	p(t_stack *a, t_stack *b)
 {
-	return ;
 	int i = 0;
 
 	while (i < a->len || i < b->len)
@@ -61,17 +60,13 @@ void	push_swap(t_stack *a, t_stack *b)
 			p(a, b);
 			ops++;
 		}
-		if (compare(a, b) < 0)
+		while (compare(a, b) < 0)
 		{
 			rotate(a);
-			p(a, b);
 			push(b, a);
-			p(a, b);
 			rotate_reverse(a);
 			p(a, b);
-			push(a, b);
-			p(a, b);
-			ops += 4;
+			ops += 3;
 		}
 		if (a->len == 0)
 		{
