@@ -52,30 +52,14 @@ void	push_swap(t_stack *a, t_stack *b)
 
 	ops = 0;
 	p(a,b);
-	while (!is_ascending(a) || b->len != 0)
+	while (a->len != 0)
 	{
 		if (compare(a, b) >= 0)
-		{
-			push(a, b);
-			p(a, b);
-			ops++;
-		}
+			ops += push(a, b);
 		while (compare(a, b) < 0)
-		{
-			rotate(a);
-			push(b, a);
-			rotate_reverse(a);
-			ops += 3;
-		}
-		if (a->len == 0)
-		{
-			while (b->len != 0)
-			{
-				push(b, a);
-				p(a, b);
-				ops++;
-			}
-		}
+			ops += rotate(a) + push(b, a) + rotate_reverse(a);
 	}
+	while (b->len != 0)
+		ops += push(b, a);
 	printf("Ops: %d\nTime: %fms\n", ops, 1000 * ((double)clock() / CLOCKS_PER_SEC));
 }

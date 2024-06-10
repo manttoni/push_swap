@@ -26,44 +26,48 @@ static void	shift(t_stack *stack, int direction)
 	}
 }
 
-void	swap(t_stack *stack)
+int	swap(t_stack *stack)
 {
 	int	tmp;
 	int	*numbers;
 
 	if (stack->len < 2)
-		return ;
+		return (0);
 	numbers = stack->numbers;
 	tmp = numbers[0];
 	numbers[0] = numbers[1];
 	numbers[1] = tmp;
+	return (1);
 }
 
-void	push(t_stack *from, t_stack *to)
+int	push(t_stack *from, t_stack *to)
 {
 	if (from->len == 0)
-		return ;
+		return (0);
 	shift(to, RIGHT);
 	to->numbers[0] = from->numbers[0];
 	shift(from, LEFT);
 	from->len--;
 	to->len++;
+	return (1);
 }
 
-void	rotate(t_stack *stack)
+int	rotate(t_stack *stack)
 {
 	int	first;
 
 	first = stack->numbers[0];
 	shift(stack, LEFT);
 	stack->numbers[stack->len - 1] = first;
+	return (1);
 }
 
-void	rotate_reverse(t_stack *stack)
+int	rotate_reverse(t_stack *stack)
 {
 	int	last;
 
 	last = stack->numbers[stack->len - 1];
 	shift(stack, RIGHT);
 	stack->numbers[0] = last;
+	return (1);
 }
