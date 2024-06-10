@@ -4,6 +4,7 @@
 
 void	p(t_stack *a, t_stack *b)
 {
+	return ;
 	int i = 0;
 
 	while (i < a->len || i < b->len)
@@ -34,6 +35,18 @@ int	is_ascending(t_stack *stack)
 	return (1);
 }
 
+/* Compare top of stacks
+ * Return
+ * 0 if one is empty
+ * + if a is bigger
+ * - if b is bigger */
+int	compare(t_stack *a, t_stack *b)
+{
+	if (a->len == 0 || b->len == 0)
+		return (0);
+	return (a->numbers[0] - b->numbers[0]);
+}
+
 void	push_swap(t_stack *a, t_stack *b)
 {
 	int	ops;
@@ -42,23 +55,31 @@ void	push_swap(t_stack *a, t_stack *b)
 	p(a,b);
 	while (!is_ascending(a) || b->len != 0)
 	{
-		if (a->numbers[0] > a->numbers[1] && a->len >= 2)
+		if (compare(a, b) >= 0)
 		{
+			push(a, b);
+			p(a, b);
 			ops++;
-			swap(a);
-			p(a,b);
-			continue;
 		}
-		ops++;
-		push(a, b);
-		p(a,b);
+		if (compare(a, b) < 0)
+		{
+			rotate(a);
+			p(a, b);
+			push(b, a);
+			p(a, b);
+			rotate_reverse(a);
+			p(a, b);
+			push(a, b);
+			p(a, b);
+			ops += 4;
+		}
 		if (a->len == 0)
 		{
 			while (b->len != 0)
 			{
-				ops++;
 				push(b, a);
-				p(a,b);
+				p(a, b);
+				ops++;
 			}
 		}
 	}

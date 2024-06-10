@@ -1,25 +1,5 @@
 #include "push_swap.h"
 
-static int	ft_atoi(char *s)
-{
-	long	ret;
-	int	sign;
-
-	sign = 1;
-	ret = 0;
-	if (*s == '-')
-	{
-		sign = -1;
-		s++;
-	}
-	while (*s)
-	{
-		ret *= 10;
-		ret += *s++ - '0';
-	}
-	return (sign * ret);
-}
-
 static int	validate_int(char *s)
 {
 	int	len;
