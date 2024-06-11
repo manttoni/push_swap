@@ -56,6 +56,8 @@ int	rotate(t_stack *stack)
 {
 	int	first;
 
+	if (stack->len <= 1)
+		return (0);
 	first = stack->numbers[0];
 	shift(stack, LEFT);
 	stack->numbers[stack->len - 1] = first;
@@ -66,6 +68,8 @@ int	rotate_reverse(t_stack *stack)
 {
 	int	last;
 
+	if (stack->len <= 1)
+		return (0);
 	last = stack->numbers[stack->len - 1];
 	shift(stack, RIGHT);
 	stack->numbers[0] = last;

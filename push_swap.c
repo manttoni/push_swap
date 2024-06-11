@@ -19,14 +19,16 @@ int	algo(t_stack *a, t_stack *b)
 
 	ops = 0;
 	p(a, b);
-	while (a->len != 0)
+	while (a->len != 1)
 	{
 		if (a->numbers[0] > a->numbers[1])
 		{
 			ops += swap(a);
+			if (b->numbers[0] < b->numbers[1])
+				swap(b); //free swap (ss)
 			p(a, b);
 		}
-		while (a->numbers[0] < a->numbers[1] || a->len == 1)
+		while (a->numbers[0] < a->numbers[1] && a->len > 1)
 		{
 			ops += push(a, b);
 			p(a, b);
@@ -38,17 +40,13 @@ int	algo(t_stack *a, t_stack *b)
 		while (a->numbers[0] < b->numbers[0] && a->len >= 2)
 		{
 			ops += rotate(a);
-			ft_printf("rotate:");
 			p(a, b);
 		}
 		ops += push(b, a);
-		ft_printf("push:");
 		p(a, b);
-		
 		while (a->numbers[0] > a->numbers[a->len - 1] && b->numbers[0] < a->numbers[a->len - 1])
 		{
 			ops += rotate_reverse(a);
-			ft_printf("rotate_reverse:");
 			p(a, b);
 		}
 	}
@@ -65,5 +63,5 @@ void	push_swap(t_stack *a, t_stack *b)
 
 	ops = algo(a, b);
 	ft_printf("\nOps: %d\n", ops);
-	printf("Time: %f ms\n", 1000 * ((double)clock() / CLOCKS_PER_SEC));
+	printf("Time: %g ms\n", 1000 * ((double)clock() / CLOCKS_PER_SEC));
 }
