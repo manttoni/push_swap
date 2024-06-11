@@ -80,18 +80,6 @@ void	push_swap(t_stack *a, t_stack *b)
 {
 	int	ops;
 
-	ops = 0;
-	/*while (a->len != 0)
-	{
-		if (a->numbers[0] > a->numbers[1])
-			ops += swap(a);
-		if (compare(a, b) >= 0)
-			ops += push(a, b);
-		while (compare(a, b) < 0)
-			ops += rotate(a) + push(b, a) + rotate_reverse(a);
-	}
-	while (b->len != 0)
-		ops += push(b, a);*/
 	ops = algo(a, b);
 	ft_printf("\nOps: %d\n", ops);
 	printf("Time: %f ms\n", 1000 * ((double)clock() / CLOCKS_PER_SEC));
