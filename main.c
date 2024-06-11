@@ -1,5 +1,13 @@
 #include "push_swap.h"
 
+int	contains(int i, int *ar, int len)
+{
+	while (len-- > 0)
+		if (ar[len] == i)
+			return (1);
+	return (0);
+}
+
 static int	validate_int(char *s)
 {
 	int	len;
@@ -43,8 +51,10 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < argc - 1)
 	{
-		if (!validate_int(argv[i + 1]))
+		if (!validate_int(argv[i + 1]) || 
+			contains(ft_atoi(argv[i + 1]), a->numbers, a->len))
 		{
+			ft_printf("Error\n");
 			free_everything(a, b);
 			return (1);
 		}
@@ -53,9 +63,6 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	push_swap(a, b);
-	i = 0;
-	while (i < a->len)
-		ft_printf("%d ", a->numbers[i++]);
 	free_everything(a, b);
 	return (0);
 }
