@@ -13,23 +13,6 @@ void	p(t_stack *a, t_stack *b)
 	ft_printf("\n");
 }
 
-/* Compare top of stacks
- * Return
- * 0 if one is empty
- * + if a is bigger
- * - if b is bigger
- * Parameters
- * b = NULL if comparing top 2 of a */
-int	compare(t_stack *a, t_stack *b)
-{
-	if (b == NULL)
-		return (a->numbers[0] - a->numbers[1]);
-	if (a->len == 0 || b->len == 0)
-		return (0);
-
-	return (a->numbers[0] - b->numbers[0]);
-}
-
 int	algo(t_stack *a, t_stack *b)
 {
 	int	ops;
@@ -38,12 +21,12 @@ int	algo(t_stack *a, t_stack *b)
 	p(a, b);
 	while (a->len != 0)
 	{
-		if (compare(a, NULL) > 0)
+		if (a->numbers[0] > a->numbers[1])
 		{
 			ops += swap(a);
 			p(a, b);
 		}
-		while (compare(a, NULL) < 0 || a->len == 1)
+		while (a->numbers[0] < a->numbers[1] || a->len == 1)
 		{
 			ops += push(a, b);
 			p(a, b);
