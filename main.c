@@ -53,6 +53,9 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	push_swap(a, b);
+	i = 0;
+	while (i < a->len)
+		ft_printf("%d ", a->numbers[i++]);
 	free_everything(a, b);
 	return (0);
 }
