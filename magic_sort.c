@@ -7,7 +7,7 @@ static int	top(t_stack *stack, int index)
 	return (stack->numbers[index]);
 }
 
-static int	find_spot(t_stack *a, t_stack *b)
+static int	find_spot(t_stack *a, long b_num)
 {
 	int	i;
 	int	ops;
@@ -16,9 +16,9 @@ static int	find_spot(t_stack *a, t_stack *b)
 	i = 0;
 	while (i < a->len)
 	{
-		if (top(b, 0) < top(a, i))
+		if (b_num < (long)top(a, i))
 		{
-			if (top(b, 0) > top(a, i - 1))
+			if (b_num > (long)top(a, i - 1))
 				break;
 			if (top(a, i) < top(a, i - 1))
 				break ;
@@ -28,13 +28,11 @@ static int	find_spot(t_stack *a, t_stack *b)
 	while (i > 0 && i <= a->len / 2)
 	{
 		ops += rotate(a);
-		p(a, b);
 		i--;
 	}
 	while (a->len - i > 0 && i != 0)
 	{
 		ops += rotate_reverse(a);
-		p(a, b);
 		i++;
 	}
 	return (ops);
@@ -65,15 +63,10 @@ int     magic_sort(t_stack *a, t_stack *b)
         while (b->len != 0)
         {
 		if (a->len > 1)
-			ops += find_spot(a, b);
+			ops += find_spot(a, top(b, 0));
                 ops += push(b, a);
                 p(a, b);
         }
-	while (top(a, 0) > top(a, -1))
-	{
-		ops += rotate_reverse(a);
-		p(a, b);
-	}
-
-        return (ops);
+	ops += find_spot(a, LONG_MIN);
+	return (ops);
 }

@@ -106,12 +106,15 @@ void	push_swap(t_stack *a, t_stack *b)
 	copy->numbers = array;
 	copy->len = a->len;
 
-	ft_printf("\nAlgo:");
+	/*ft_printf("\nAlgo:");
 	ft_printf("\n\tOps: %d\n", algo(a, b));
-	pr(a, b);
+	pr(a, b);*/
 	ft_printf("\nMagic:");
 	ft_printf("\n\tOps: %d\n", magic_sort(copy, b));
 	pr(copy, b);
+	if (is_ascending(copy))
+		ft_printf("\nPASS\n");
+
 	free(array);
 	free(copy);
 }
