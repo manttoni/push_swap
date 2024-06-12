@@ -46,7 +46,6 @@ int	algo(t_stack *a, t_stack *b)
 			p(a, b);
 		}
 		ops += push(b, a);
-		ft_printf("push");
 		p(a, b);
 		while (a->numbers[0] > a->numbers[a->len - 1] && b->numbers[0] < a->numbers[a->len - 1])
 		{
