@@ -16,24 +16,6 @@ int	is_ascending(t_stack *stack)
 	return (1);
 }
 
-void	pr(t_stack *a, t_stack *b)
-{
-	ft_printf("\n\ta:");
-	for (int i = 0; i < a->len; ++i)
-		ft_printf(" %d", a->numbers[i]);
-	ft_printf("\n\tb:");
-	for (int i = 0; i < b->len; ++i)
-		ft_printf(" %d", b->numbers[i]);
-	ft_printf("\n");
-}
-
-void	p(t_stack *a, t_stack *b)
-{
-	return ;
-	pr(a, b);
-}
-
-
 int	algo(t_stack *a, t_stack *b)
 {
 	int	ops;
@@ -124,11 +106,11 @@ void	push_swap(t_stack *a, t_stack *b)
 	copy->numbers = array;
 	copy->len = a->len;
 
-	ft_printf("\nAlgo1:");
+	ft_printf("\nAlgo:");
 	ft_printf("\n\tOps: %d\n", algo(a, b));
 	pr(a, b);
-	ft_printf("\nAlgo2:");
-	ft_printf("\n\tOps: %d\n", algo2(copy, b));
+	ft_printf("\nMerge:");
+	ft_printf("\n\tOps: %d\n", iterative_merge_sort(copy, b));
 	pr(copy, b);
 	free(array);
 	free(copy);

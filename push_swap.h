@@ -17,5 +17,9 @@ int	swap(t_stack *stack);
 int	push(t_stack *from, t_stack *to);
 int	rotate(t_stack *stack);
 int	rotate_reverse(t_stack *stack);
+int	iterative_merge_sort(t_stack *a, t_stack *b);
+
+void	p(t_stack *a, t_stack *b);
+void	pr(t_stack *a, t_stack *b);
 
 #endif
