@@ -29,11 +29,13 @@ int	algo(t_stack *a, t_stack *b)
 			ops += swap(a);
 			if (b->numbers[0] < b->numbers[1])
 				swap(b); //free swap (ss)
+			ft_printf("swap");
 			p(a, b);
 		}
 		while (a->numbers[0] < a->numbers[1] && a->len > 1)
 		{
 			ops += push(a, b);
+			ft_printf("push");
 			p(a, b);
 		}
 	}
@@ -43,13 +45,16 @@ int	algo(t_stack *a, t_stack *b)
 		while (a->numbers[0] < b->numbers[0] && a->len >= 2)
 		{
 			ops += rotate(a);
+			ft_printf("rotate");
 			p(a, b);
 		}
 		ops += push(b, a);
+		ft_printf("push");
 		p(a, b);
 		while (a->numbers[0] > a->numbers[a->len - 1] && b->numbers[0] < a->numbers[a->len - 1])
 		{
 			ops += rotate_reverse(a);
+			ft_printf("reverse");
 			p(a, b);
 		}
 	}
@@ -109,8 +114,8 @@ void	push_swap(t_stack *a, t_stack *b)
 	ft_printf("\nAlgo:");
 	ft_printf("\n\tOps: %d\n", algo(a, b));
 	pr(a, b);
-	ft_printf("\nMerge:");
-	ft_printf("\n\tOps: %d\n", iterative_merge_sort(copy, b));
+	ft_printf("\nMagic:");
+	ft_printf("\n\tOps: %d\n", magic_sort(copy, b));
 	pr(copy, b);
 	free(array);
 	free(copy);

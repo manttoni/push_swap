@@ -21,5 +21,6 @@ int	iterative_merge_sort(t_stack *a, t_stack *b);
 
 void	p(t_stack *a, t_stack *b);
 void	pr(t_stack *a, t_stack *b);
+int	magic_sort(t_stack *a, t_stack *b);
 
 #endif
