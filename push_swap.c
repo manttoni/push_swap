@@ -29,13 +29,11 @@ int	algo(t_stack *a, t_stack *b)
 			ops += swap(a);
 			if (b->numbers[0] < b->numbers[1])
 				swap(b); //free swap (ss)
-			ft_printf("swap");
 			p(a, b);
 		}
 		while (a->numbers[0] < a->numbers[1] && a->len > 1)
 		{
 			ops += push(a, b);
-			ft_printf("push");
 			p(a, b);
 		}
 	}
@@ -45,7 +43,6 @@ int	algo(t_stack *a, t_stack *b)
 		while (a->numbers[0] < b->numbers[0] && a->len >= 2)
 		{
 			ops += rotate(a);
-			ft_printf("rotate");
 			p(a, b);
 		}
 		ops += push(b, a);
@@ -54,7 +51,6 @@ int	algo(t_stack *a, t_stack *b)
 		while (a->numbers[0] > a->numbers[a->len - 1] && b->numbers[0] < a->numbers[a->len - 1])
 		{
 			ops += rotate_reverse(a);
-			ft_printf("reverse");
 			p(a, b);
 		}
 	}
