@@ -90,16 +90,12 @@ int     magic_sort(t_stack *a, t_stack *b)
         int     ops;
 	int	rotations[2];
 
-        ops = 0;
-	ops += pusher(a, b);
-        ft_printf("------------------Ops: %d--------------------", ops);
+        ops = pusher(a, b);
 	while (b->len > 0)
 	{
 		ops += push(b, a);
-		p(a, b);
 		least_rotations(a, b, rotations);
 		ops += do_rotations(a, rotations[0]) + do_rotations(b, rotations[1]);
-		p(a, b);
 	}
 	while (top(a, 0) > top(a, -1))
 		ops += rotate_reverse(a);
