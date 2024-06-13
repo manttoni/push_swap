@@ -37,6 +37,7 @@ int	swap(t_stack *stack)
 	tmp = numbers[0];
 	numbers[0] = numbers[1];
 	numbers[1] = tmp;
+	ft_printf("swap");
 	return (1);
 }
 
@@ -49,6 +50,7 @@ int	push(t_stack *from, t_stack *to)
 	shift(from, LEFT);
 	from->len--;
 	to->len++;
+	ft_printf("push");
 	return (1);
 }
 
@@ -61,6 +63,7 @@ int	rotate(t_stack *stack)
 	first = stack->numbers[0];
 	shift(stack, LEFT);
 	stack->numbers[stack->len - 1] = first;
+	ft_printf("rotate");
 	return (1);
 }
 
@@ -73,5 +76,6 @@ int	rotate_reverse(t_stack *stack)
 	last = stack->numbers[stack->len - 1];
 	shift(stack, RIGHT);
 	stack->numbers[0] = last;
+	ft_printf("reverse");
 	return (1);
 }

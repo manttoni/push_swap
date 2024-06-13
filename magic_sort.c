@@ -2,71 +2,108 @@
 
 static int	top(t_stack *stack, int index)
 {
-	if (index == -1)
-		return (stack->numbers[stack->len - 1]);
+	if (index < 0)
+		return (stack->numbers[stack->len + index]);
 	return (stack->numbers[index]);
 }
-
-static int	find_spot(t_stack *a, long b_num)
+static unsigned int	absolute(int i)
 {
-	int	i;
-	int	ops;
+	if (i < 0)
+		return (-i);
+	return (i);
+}
+static void	*least_rotations(t_stack *a, t_stack *b, int *rotations)
+{
+	int		i;
+	int		j;
+	unsigned int	least;
 
-	ops = 0;
-	i = 0;
-	while (i < a->len)
+	least = UINT_MAX;
+	i = -1 * a->len / 2;
+	while (i < a->len / 2)
 	{
-		if (b_num < (long)top(a, i))
+		j = -1 * b->len / 2;
+		while (j <= b->len / 2)
 		{
-			if (b_num > (long)top(a, i - 1))
-				break;
-			if (top(a, i) < top(a, i - 1))
-				break ;
+			if (top(a, i) > top(b, j)
+			&& (top(a, i - 1) < top(b, j)
+			|| top(a, i) < top(a, i - 1)))
+				if (least > absolute(i) + absolute(j))
+				{
+					least = absolute(i) + absolute(j);
+					rotations[0] = i;
+					rotations[1] = j;
+				}
+			j++;
 		}
 		i++;
 	}
-	while (i > 0 && i <= a->len / 2)
-	{
-		ops += rotate(a);
-		i--;
-	}
-	while (a->len - i > 0 && i != 0)
-	{
-		ops += rotate_reverse(a);
-		i++;
-	}
-	return (ops);
 }
 
-int     magic_sort(t_stack *a, t_stack *b)
+static int	pusher(t_stack *a, t_stack *b)
 {
-        int     ops;
+	int	ops;
 
-        ops = 0;
-        p(a, b);
-        while (a->len != 1)
+	ops = 0;
+	while (a->len != 1)
         {
-                if (a->numbers[0] > a->numbers[1])
+                if (top(a, 0) > top(a, 1))
                 {
                         ops += swap(a);
-                        if (b->numbers[0] < b->numbers[1])
+                        if (top(b, 0) < top(b, 1))
                                 swap(b); //free swap (ss)
                         p(a, b);
                 }
-                while (a->numbers[0] < a->numbers[1] && a->len > 1)
+                while (top(a, 0) < top(a, 1) && a->len > 1)
                 {
                         ops += push(a, b);
                         p(a, b);
                 }
         }
-        ft_printf("--------------------------------------");
-        while (b->len != 0)
-        {
-		if (a->len > 1)
-			ops += find_spot(a, top(b, 0));
-                ops += push(b, a);
-                p(a, b);
-        }
-	ops += find_spot(a, LONG_MIN);
+	return (ops);
+}
+
+static int	do_rotations(t_stack *stack, int rots)
+{
+	int	ops;
+
+	ops = 0;
+	while (rots != 0)
+	{
+		while (rots < 0)
+		{
+			ops += rotate_reverse(stack);
+			rots++;
+		}
+		while (rots > 0)
+		{
+			ops += rotate(stack);
+			rots--;
+		}
+	}
+	return (ops);
+}
+
+
+int     magic_sort(t_stack *a, t_stack *b)
+{
+        int     ops;
+	int	rotations[2];
+
+        ops = 0;
+	ops += pusher(a, b);
+        ft_printf("------------------Ops: %d--------------------", ops);
+	while (b->len > 0)
+	{
+		ops += push(b, a);
+		p(a, b);
+		least_rotations(a, b, rotations);
+		ops += do_rotations(a, rotations[0]) + do_rotations(b, rotations[1]);
+		p(a, b);
+	}
+	while (top(a, 0) > top(a, -1))
+		ops += rotate_reverse(a);
+	//while (top(a, 0) < top(a, -1))
+	//	ops += rotate(a);
 	return (ops);
 }
