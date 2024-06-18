@@ -13,6 +13,5 @@ void    pr(t_stack *a, t_stack *b)
 
 void    p(t_stack *a, t_stack *b)
 {
-	return ;
         pr(a, b);
 }
