@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 # Source files
-SRCS = main.c test_utils.c magic_sort.c operations.c push_swap.c
+SRCS = main.c magic_sort.c operations.c push_swap.c utils.c
 
 # Libraries
 LIBFT = libft/libft.a
@@ -17,7 +17,7 @@ FT_PRINTF = ft_printf/libftprintf.a
 .PHONY: all libs clean fclean re
 
 all: $(LIBFT) $(FT_PRINTF) $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) $(LIBFT) $(FT_PRINTF) -o push_swap
+	$(CC) -g $(CFLAGS) $(SRCS) $(LIBFT) $(FT_PRINTF) -o push_swap
 
 libs:
 	$(MAKE) -C libft

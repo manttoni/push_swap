@@ -1,29 +1,28 @@
 #include "push_swap.h"
 
-static int	top(t_stack *stack, int index)
+static void	print(t_stack *a, t_stack *b)
 {
-	if (index < 0)
-		return (stack->numbers[stack->len + index]);
-	return (stack->numbers[index]);
+	ft_printf("\na: ");
+	for (unsigned int i = 0; i < a->len; ++i)
+		ft_printf("%d ", top(a, i));
+	ft_printf("\nb: ");
+	for (unsigned int i = 0; i < b->len; ++i)
+		ft_printf("%d ", top(b, i));
+	ft_printf("\n");
 }
-static unsigned int	absolute(int i)
-{
-	if (i < 0)
-		return (-i);
-	return (i);
-}
+
 static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 	unsigned int	least;
 
 	least = UINT_MAX;
-	i = -1 * a->len / 2;
-	while (i < a->len / 2)
+	i = -1 * (long)a->len / 2;
+	while (i < (long)a->len / 2)
 	{
-		j = -1 * b->len / 2;
-		while (j <= b->len / 2)
+		j = -1 * (long)b->len / 2;
+		while (j <= (long)(b->len / 2))
 		{
 			if (b->len == 0 && top(a, i) < top(a, i - 1))
 			{
@@ -34,15 +33,15 @@ static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 					rotations[1] = 0;
 				}
 			}
-			if (top(a, i) > top(b, j)
-			&& (top(a, i - 1) < top(b, j)
-			|| top(a, i) < top(a, i - 1)))
+			else if (b->len != 0 && top(a, i) > top(b, j) && (top(a, i - 1) < top(b, j) || top(a, i) < top(a, i - 1)))
+			{
 				if (least > absolute(i) + absolute(j))
 				{
 					least = absolute(i) + absolute(j);
 					rotations[0] = i;
 					rotations[1] = j;
 				}
+			}
 			j++;
 		}
 		i++;
@@ -54,25 +53,21 @@ static int	pusher(t_stack *a, t_stack *b)
 	int	ops;
 
 	ops = 0;
-	while (a->len != 1)
-        {
-                if (top(a, 0) > top(a, 1))
-                {
-                        ops += swap(a);
-                        if (top(b, 0) < top(b, 1))
-			{
-                                swap(b); //free swap (ss)
-				ft_printf("ss\n");
-			}
-			else
-				ft_printf("sa\n");
-                }
-                while (top(a, 0) < top(a, 1) && a->len > 1)
-                {
-                        ops += push(a, b);
-                        ft_printf("pb\n");
-                }
-        }
+	while (!is_ascending(a))
+	{
+		if (top(a, 0) > top(a, 1))
+		{
+			ops += swap(a);
+			print(a, b);
+		}
+		if (is_ascending(a))
+			break;
+		while (top(a, 0) < top(a, 1) && a->len > 1)
+		{
+			ops += push(a, b);
+			print(a, b);
+		}
+	}
 	return (ops);
 }
 
@@ -83,30 +78,29 @@ static int	do_rotations(t_stack *a, t_stack *b, int *rotations)
 	ops = 0;
 	while (rotations[0] != 0 || rotations[1] != 0)
 	{
-		ft_printf("rotations 0 = %d 1 = %d\n", rotations[0], rotations[1]);
 		if (rotations[0] < 0)
 		{
 			ops += rotate_reverse(a);
 			rotations[0]++;
-			ft_printf("rra\n");
+			print(a, b);
 		}
 		else if (rotations[0] > 0)
 		{
 			ops += rotate(a);
 			rotations[0]--;
-			ft_printf("ra\n");
+			print(a, b);
 		}
 		if (rotations[1] < 0)
 		{
 			ops += rotate_reverse(b);
 			rotations[1]++;
-			ft_printf("rrb\n");
+			print(a, b);
 		}
 		else if (rotations[1] > 0)
 		{
 			ops += rotate(b);
 			rotations[1]--;
-			ft_printf("rb\n");
+			print(a, b);
 		}
 	}
 	return (ops);
@@ -115,16 +109,18 @@ static int	do_rotations(t_stack *a, t_stack *b, int *rotations)
 
 int     magic_sort(t_stack *a, t_stack *b)
 {
-        int     ops;
+	int	ops;
 	int	rotations[2];
 
-        ops = pusher(a, b);
-	while (b->len > 0)
+	rotations[0] = 0;
+	rotations[1] = 0;
+	ops = pusher(a, b);
+	while (b->len != 0)
 	{
-		ops += push(b, a);
-		ft_printf("pa\n");
 		least_rotations(a, b, rotations);
 		ops += do_rotations(a, b, rotations);
+		ops += push(b, a);
+		print(a, b);
 	}
 	least_rotations(a, b, rotations);
 	ops += do_rotations(a, b, rotations);

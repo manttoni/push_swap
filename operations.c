@@ -4,7 +4,7 @@
 
 static void	shift(t_stack *stack, int direction)
 {
-	int i;
+	unsigned int	i;
 
 	if (direction == RIGHT)
 	{
