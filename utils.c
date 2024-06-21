@@ -26,7 +26,6 @@ unsigned int	absolute(int i)
 	return (i);
 }
 
-/* Array can be not ascending n times.*/
 int	is_ascending(t_stack *stack)
 {
 	unsigned int	i;
