@@ -11,6 +11,8 @@ static void	print(t_stack *a, t_stack *b)
 	ft_printf("\n");
 }
 
+/* Calculate least rotations to be able to push from b to a so that it stays sorted
+ * If b is empty, calculate least rotations to have smallest number at first index */
 static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 {
 	int	i;
@@ -48,6 +50,8 @@ static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 	}
 }
 
+/* Push from a to b so that the biggest number stays in a
+ * If a is in ascending order (circular), move to next step */
 static int	pusher(t_stack *a, t_stack *b)
 {
 	int	ops;
@@ -71,6 +75,7 @@ static int	pusher(t_stack *a, t_stack *b)
 	return (ops);
 }
 
+/* Rotate stacks, one rotation per stack at a time */
 static int	do_rotations(t_stack *a, t_stack *b, int *rotations)
 {
 	int	ops;
@@ -106,7 +111,8 @@ static int	do_rotations(t_stack *a, t_stack *b, int *rotations)
 	return (ops);
 }
 
-
+/* Push numbers to b until a is sorted, then push from b without breaking sortedness
+ * Can sort 100 ints in less than 800 operations */
 int     magic_sort(t_stack *a, t_stack *b)
 {
 	int	ops;
