@@ -11,6 +11,12 @@ static void	print(t_stack *a, t_stack *b)
 	ft_printf("\n");
 }
 
+static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
+{
+	return (top(a, i) > top(b, j) && (top(a, i - 1) < top(b, j) || top(a, i) < top(a, i - 1)));
+}
+
+
 /* Calculate least rotations to be able to push from b to a so that it stays sorted
  * If b is empty, calculate least rotations to have smallest number at first index */
 static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
@@ -21,7 +27,7 @@ static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 
 	least = UINT_MAX;
 	i = -1 * (long)a->len / 2;
-	while (i < (long)a->len / 2)
+	while (i <= (long)a->len / 2)
 	{
 		j = -1 * (long)b->len / 2;
 		while (j <= (long)(b->len / 2))
@@ -35,7 +41,7 @@ static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 					rotations[1] = 0;
 				}
 			}
-			else if (b->len != 0 && top(a, i) > top(b, j) && (top(a, i - 1) < top(b, j) || top(a, i) < top(a, i - 1)))
+			else if (b->len != 0 && is_aligned(a, b, i, j))
 			{
 				if (least > absolute(i) + absolute(j))
 				{
@@ -62,6 +68,8 @@ static int	pusher(t_stack *a, t_stack *b)
 		if (top(a, 0) > top(a, 1))
 		{
 			ops += swap(a);
+			if (top(b, 0) < top(b, 1))
+				swap(b);
 			print(a, b);
 		}
 		if (is_ascending(a))

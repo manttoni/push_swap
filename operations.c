@@ -8,7 +8,7 @@ static void	shift(t_stack *stack, int direction)
 
 	if (direction == RIGHT)
 	{
-		i = stack->len;
+		i = stack->len - 1;
 		while (i > 0)
 		{
 			stack->numbers[i] = stack->numbers[i - 1];
@@ -18,7 +18,7 @@ static void	shift(t_stack *stack, int direction)
 	else if (direction == LEFT)
 	{
 		i = 0;
-		while (i < stack->len)
+		while (i < stack->len - 1)
 		{
 			stack->numbers[i] = stack->numbers[i + 1];
 			i++;
@@ -44,11 +44,11 @@ int	push(t_stack *from, t_stack *to)
 {
 	if (from->len == 0)
 		return (0);
+	to->len++;
 	shift(to, RIGHT);
 	to->numbers[0] = from->numbers[0];
 	shift(from, LEFT);
 	from->len--;
-	to->len++;
 	return (1);
 }
 
