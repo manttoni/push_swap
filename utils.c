@@ -6,7 +6,7 @@
 /*   By: amaula <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:37:16 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/26 16:38:33 by amaula           ###   ########.fr       */
+/*   Updated: 2024/06/26 17:07:27 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,5 @@ int	operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder)
 	operate2(operation, a, b);
 	if (record(recorder, operation) == 0)
 		return (0);
-	ft_printf("\n%s", operation);
 	return (1);
 }

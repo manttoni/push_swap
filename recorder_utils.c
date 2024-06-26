@@ -42,7 +42,7 @@ int	record(t_recorder *recorder, char *operation)
 	if (recorder->len > 0)
 	{
 		last_operation = recorder->operations[recorder->len - 1];
-		if (ft_strncmp(last_operation, operation, 3) == 1)
+		if (absolute(ft_strncmp(last_operation, operation, 3)) == 1)
 		{
 			last_operation[ft_strlen(last_operation) - 1] = last_operation[0];
 			return (1);

@@ -7,7 +7,20 @@ static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 
 static void	update_rotations(int *rotations, int i, int j, unsigned int *least)
 {
-	if (*least > absolute(i) + absolute(j))
+	int				same_sign;
+	unsigned int	greater;
+
+	greater = absolute(i);
+	if (absolute(j) > absolute(i))
+		greater = absolute(j);
+	same_sign = (rotations[0] < 0 && rotations[1] < 0) || (rotations[0] > 0 && rotations[1] > 0);
+	if (same_sign && *least > greater)
+	{
+		*least = greater;
+		rotations[0] = i;
+		rotations[1] = j;
+	}
+	else if (*least > absolute(i) + absolute(j))
 	{
 		*least = absolute(i) + absolute(j);
 		rotations[0] = i;
