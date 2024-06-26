@@ -98,8 +98,9 @@ static int	do_rotations_push(t_stack *a, t_stack *b, int *rotations, t_recorder 
 		if (b_operation && operate(b_operation, a, b, recorder) == 0)
 			return (0);
 	}
-	if (operate("pa", a, b, recorder) == 0)
-		return (0);
+	if (b->len != 0)
+		if (operate("pa", a, b, recorder) == 0)
+			return (0);
 	return (1);
 }
 

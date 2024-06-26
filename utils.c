@@ -6,7 +6,7 @@
 /*   By: amaula <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:37:16 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/26 16:18:32 by amaula           ###   ########.fr       */
+/*   Updated: 2024/06/26 16:38:33 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	operate2(char *operation, t_stack *a, t_stack *b)
 		else
 			rotate(b);
 	}
-	else
+	else if (ft_strlen(operation) == 3)
 	{
 		if (operation[2] == 'a')
 			rotate_reverse(a);
@@ -96,6 +96,5 @@ int	operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder)
 	if (record(recorder, operation) == 0)
 		return (0);
 	ft_printf("\n%s", operation);
-	print(a, b);
 	return (1);
 }
