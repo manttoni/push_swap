@@ -1,16 +1,5 @@
 #include "push_swap.h"
 
-static void	print(t_stack *a, t_stack *b)
-{
-	ft_printf("\na: ");
-	for (unsigned int i = 0; i < a->len; ++i)
-		ft_printf("%d ", top(a, i));
-	ft_printf("\nb: ");
-	for (unsigned int i = 0; i < b->len; ++i)
-		ft_printf("%d ", top(b, i));
-	ft_printf("\n");
-}
-
 static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 {
 	return (top(a, i) > top(b, j) && (top(a, i - 1) < top(b, j) || top(a, i) < top(a, i - 1)));
@@ -58,85 +47,79 @@ static void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 
 /* Push from a to b so that the biggest number stays in a
  * If a is in ascending order (circular), move to next step */
-static int	pusher(t_stack *a, t_stack *b)
+static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
-	int	ops;
-
-	ops = 0;
 	while (!is_ascending(a))
 	{
 		if (top(a, 0) > top(a, 1))
-		{
-			ops += swap(a);
-			if (top(b, 0) < top(b, 1))
-				swap(b);
-			print(a, b);
-		}
+			if (operate("sa", a, b, recorder) == 0)
+				return (0);
 		if (is_ascending(a))
 			break;
 		while (top(a, 0) < top(a, 1) && a->len > 1)
-		{
-			ops += push(a, b);
-			print(a, b);
-		}
+			if (operate("pb", a, b, recorder) == 0)
+				return (0);
 	}
-	return (ops);
+	return (1);
 }
 
 /* Rotate stacks, one rotation per stack at a time */
-static int	do_rotations(t_stack *a, t_stack *b, int *rotations)
+static int	do_rotations_push(t_stack *a, t_stack *b, int *rotations, t_recorder *recorder)
 {
-	int	ops;
+	char	*a_operation;
+	char	*b_operation;
 
-	ops = 0;
 	while (rotations[0] != 0 || rotations[1] != 0)
 	{
+		a_operation = NULL;
+		b_operation = NULL;
 		if (rotations[0] < 0)
 		{
-			ops += rotate_reverse(a);
+			a_operation = "rra";
 			rotations[0]++;
-			print(a, b);
 		}
 		else if (rotations[0] > 0)
 		{
-			ops += rotate(a);
+			a_operation = "ra";
 			rotations[0]--;
-			print(a, b);
 		}
+		if (a_operation && operate(a_operation, a, b, recorder) == 0)
+			return (0);
 		if (rotations[1] < 0)
 		{
-			ops += rotate_reverse(b);
+			b_operation = "rrb";
 			rotations[1]++;
-			print(a, b);
 		}
 		else if (rotations[1] > 0)
 		{
-			ops += rotate(b);
+			b_operation = "rb";
 			rotations[1]--;
-			print(a, b);
 		}
+		if (b_operation && operate(b_operation, a, b, recorder) == 0)
+			return (0);
 	}
-	return (ops);
+	if (operate("pa", a, b, recorder) == 0)
+		return (0);
+	return (1);
 }
 
 /* Push numbers to b until a is sorted, then push from b without breaking sortedness
  * Can sort 100 ints in less than 800 operations */
-int     magic_sort(t_stack *a, t_stack *b)
+int     magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 {
-	int	ops;
 	int	rotations[2];
 
 	rotations[0] = 0;
 	rotations[1] = 0;
-	ops = pusher(a, b);
-	while (b->len != 0)
+	if (pusher(a, b, recorder) == 0)
+		return (0);
+	while (b->len != 0 || top(a, 0) > top(a, -1))
 	{
 		least_rotations(a, b, rotations);
-		ops += do_rotations(a, b, rotations);
-		ops += push(b, a);
-		print(a, b);
+		if (do_rotations_push(a, b, rotations, recorder) == 0)
+			return (0);
+		if (!is_ascending(a))
+			return(0);
 	}
-	least_rotations(a, b, rotations);
-	ops += do_rotations(a, b, rotations);
-	return (ops);
+	return (1);
 }

@@ -1,4 +1,3 @@
-#include "recorder.h"
 #include "push_swap.h"
 
 t_recorder	*init_recorder()
@@ -6,6 +5,8 @@ t_recorder	*init_recorder()
 	t_recorder	*r;
 
 	r = malloc(sizeof(t_recorder));
+	if (r == NULL)
+		return (NULL);
 	r->operations = malloc(sizeof(char*));
 	if (r->operations == NULL)
 		return (NULL);
@@ -14,22 +15,7 @@ t_recorder	*init_recorder()
 	return (r);
 }
 
-int	record(t_recorder *recorder, char *operation)
-{
-	if (recorder->len == recorder->allocated)
-	{
-		ft_realloc_operations(recorder, recorder->allocated * 2);
-		if (recorder->operations == NULL)
-			return (0);
-	}
-	recorder->operations[recorder->len] = ft_strdup(operation);
-	if (recorder->operations[recorder->len] == NULL)
-		return (0);
-	recorder->len++;
-	return (1);
-}
-
-void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
+static void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
 {
 	char			**new_operations;
 	unsigned int	i;
@@ -49,24 +35,28 @@ void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
 	return (recorder);
 }
 
-void	find_simultaneous(t_recorder *recorder)
+int	record(t_recorder *recorder, char *operation)
 {
-	unsigned int	i;
-	char			*current;
-	char			*next;
+	char	*last_operation;
 
-	i = 0;
-	while (i < recorder->len - 1)
+	if (recorder->len > 0)
 	{
-		current = recorder->operations[i];
-		next = recorder->operations[i + 1];
-		if (ft_strcmp(current, next) == 1)
+		last_operation = recorder->operations[recorder->len - 1];
+		if (ft_strncmp(last_operation, operation, 3) == 1)
 		{
-			current[ft_strlen(current) - 1] = current[0];
-			ft_memmove(next, next + 1, recorder->len - i - 1);
-			free(recorder->operations[recorder->len - 1]);
-			recorder->len--;
+			last_operation[ft_strlen(last_operation) - 1] = last_operation[0];
+			return (1);
 		}
-		i++;
 	}
+	if (recorder->len == recorder->allocated)
+	{
+		ft_realloc_operations(recorder, recorder->allocated * 2);
+		if (recorder->operations == NULL)
+			return (0);
+	}
+	recorder->operations[recorder->len] = ft_strdup(operation);
+	if (recorder->operations[recorder->len] == NULL)
+		return (0);
+	recorder->len++;
+	return (1);
 }
