@@ -18,6 +18,7 @@ typedef	struct	s_recorder
 	size_t			allocated;
 }	t_recorder;
 
+void			least_rotations(t_stack *a, t_stack *b, int *rotations);
 int				operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder);
 int				record(t_recorder *recorder, char *operation);
 t_recorder		*init_recorder();
