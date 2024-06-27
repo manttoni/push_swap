@@ -1,31 +1,4 @@
 #include "push_swap.h"
-
-int	contains(int i, int *ar, int len)
-{
-	while (len-- > 0)
-		if (ar[len] == i)
-			return (1);
-	return (0);
-}
-
-static int	validate_int(char *s)
-{
-	int	len;
-
-	len = 0;
-	if (*s == '-')
-		s++;
-	while (*s)
-	{
-		if (*s >= '0' && *s <= '9')
-			s++;
-		else
-			return (0);
-		len++;
-	}
-	return (len <= 10);
-}
-
 void	free_everything(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	free(a->numbers);

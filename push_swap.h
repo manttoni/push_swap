@@ -18,10 +18,14 @@ typedef	struct	s_recorder
 	size_t			allocated;
 }	t_recorder;
 
+void			print(t_stack *a, t_stack *b);
+
+int				validate_input(int argc, char **argv);
 void			least_rotations(t_stack *a, t_stack *b, int *rotations);
 int				operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder);
 int				record(t_recorder *recorder, char *operation);
-t_recorder		*init_recorder();
+t_recorder		*init_recorder(t_recorder *recorder);
+t_stack			*init_stack(t_stack *stack, int stack_max);
 void			find_simultaneous(t_recorder *recorder);
 void			push_swap(t_stack *a, t_stack *b, t_recorder *recorder);
 int				swap(t_stack *stack);

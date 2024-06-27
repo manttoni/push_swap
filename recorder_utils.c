@@ -1,18 +1,16 @@
 #include "push_swap.h"
 
-t_recorder	*init_recorder()
+t_recorder	*init_recorder(t_recorder *recorder)
 {
-	t_recorder	*r;
-
-	r = malloc(sizeof(t_recorder));
-	if (r == NULL)
+	recorder = malloc(sizeof(t_recorder));
+	if (recorder == NULL)
 		return (NULL);
-	r->operations = malloc(sizeof(char*));
-	if (r->operations == NULL)
+	recorder->operations = malloc(sizeof(char*));
+	if (recorder->operations == NULL)
 		return (NULL);
-	r->len = 0;
-	r->allocated = 1;
-	return (r);
+	recorder->len = 0;
+	recorder->allocated = 1;
+	return (recorder);
 }
 
 static void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
