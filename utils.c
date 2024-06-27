@@ -6,7 +6,7 @@
 /*   By: amaula <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:37:16 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/26 17:32:41 by amaula           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:18:05 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,42 +58,35 @@ int	is_ascending(t_stack *stack)
 	return (1);
 }
 
-static void	operate2(char *operation, t_stack *a, t_stack *b)
-{
-	if (*operation == 'r' && ft_strlen(operation) == 2)
-	{
-		if (operation[1] == 'a')
-			rotate(a);
-		else
-			rotate(b);
-	}
-	else if (ft_strlen(operation) == 3)
-	{
-		if (operation[2] == 'a')
-			rotate_reverse(a);
-		else
-			rotate_reverse(b);
-	}
-}
-
 int	operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder)
 {
-	if (*operation == 's')
-	{
-		if (operation[1] == 'a')
-			swap(a);
-		else
-			swap(b);
-	}
-	else if (*operation == 'p')
-	{
-		if (operation[1] == 'a')
-			push(b, a);
-		else
-			push(a, b);
-	}
-	operate2(operation, a, b);
-	if (record(recorder, operation) == 0)
-		return (0);
+	int	op_success;
+
+	op_success = 0;
+	if (ft_strncmp(operation, "sa", 2) == 0)
+		op_success = swap(a);
+	else if (ft_strncmp(operation, "sb", 2) == 0)
+		op_success = swap(b);
+	else if (ft_strncmp(operation, "ss", 2) == 0 && a->len > 1 && b->len > 1)
+		op_success = swap(a) * swap(b);
+	else if (ft_strncmp(operation, "pa", 2) == 0)
+		op_success = push(b, a);
+	else if (ft_strncmp(operation, "pb", 2) == 0)
+		op_success = push(a, b);
+	else if (ft_strncmp(operation, "ra", 2) == 0)
+		op_success = rotate(a);
+	else if (ft_strncmp(operation, "rb", 2) == 0)
+		op_success = rotate(b);
+	else if (ft_strncmp(operation, "rr", 2) == 0 && ft_strlen(operation) == 2)
+		op_success = rotate(a) * rotate(b);
+	else if (ft_strncmp(operation, "rra", 3) == 0)
+		op_success = rotate_reverse(a);
+	else if (ft_strncmp(operation, "rrb", 3) == 0)
+		op_success = rotate_reverse(b);
+	else if (ft_strncmp(operation, "rrr", 3) == 0)
+		op_success = rotate_reverse(a) * rotate_reverse(b);
+	if (op_success)
+		if (record(recorder, operation) == 0)
+			return (0);
 	return (1);
 }

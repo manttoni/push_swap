@@ -35,37 +35,8 @@ static void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
 	return (recorder);
 }
 
-static int	is_simul(char *last, char *new)
-{
-	unsigned int	last_len;
-	unsigned int	new_len;
-
-	last_len = ft_strlen(last);
-	new_len = ft_strlen(new);
-	if (last_len != new_len)
-		return (0);
-	if (absolute(ft_strncmp(last, new, last_len)) == 0)
-		return (0);
-	if (last[0] != new[0])
-		return (0);
-	if (last_len == 3 && last[1] != new[1])
-		return (0);
-	return (1);
-}
-
 int	record(t_recorder *recorder, char *operation)
 {
-	char	*last_operation;
-
-	if (recorder->len > 0)
-	{
-		last_operation = recorder->operations[recorder->len - 1];
-		if (is_simul(last_operation, operation))
-		{
-			last_operation[ft_strlen(last_operation) - 1] = last_operation[0];
-			return (1);
-		}
-	}
 	if (recorder->len == recorder->allocated)
 	{
 		ft_realloc_operations(recorder, recorder->allocated * 2);

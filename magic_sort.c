@@ -18,41 +18,52 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 	return (1);
 }
 
+char	*get_operation(int *rotations)
+{
+	if (rotations[0] * rotations[1] > 0)
+	{
+		if (rotations[0] > 0)
+		{
+			rotations[0]--;
+			rotations[1]--;
+			return ("rr");
+		}
+		else
+		{
+			rotations[0]++;
+			rotations[1]++;
+			return ("rrr");
+		}
+	}
+	if (rotations[0] > 0)
+	{
+		rotations[0]--;
+		return ("ra");
+	}
+	else if (rotations[0] < 0)
+	{
+		rotations[0]++;
+		return ("rra");
+	}
+	if (rotations[1] > 0)
+	{
+		rotations[1]--;
+		return ("rb");
+	}
+	else if (rotations[1] < 0)
+	{
+		rotations[1]++;
+		return ("rrb");
+	}
+	return (NULL);
+}
+
 /* Rotate stacks, one rotation per stack at a time */
 static int	do_rotations_push(t_stack *a, t_stack *b, int *rotations, t_recorder *recorder)
 {
-	char	*a_operation;
-	char	*b_operation;
-
 	while (rotations[0] != 0 || rotations[1] != 0)
-	{
-		a_operation = NULL;
-		b_operation = NULL;
-		if (rotations[0] < 0)
-		{
-			a_operation = "rra";
-			rotations[0]++;
-		}
-		else if (rotations[0] > 0)
-		{
-			a_operation = "ra";
-			rotations[0]--;
-		}
-		if (a_operation && operate(a_operation, a, b, recorder) == 0)
+		if (operate(get_operation(rotations), a, b, recorder) == 0)
 			return (0);
-		if (rotations[1] < 0)
-		{
-			b_operation = "rrb";
-			rotations[1]++;
-		}
-		else if (rotations[1] > 0)
-		{
-			b_operation = "rb";
-			rotations[1]--;
-		}
-		if (b_operation && operate(b_operation, a, b, recorder) == 0)
-			return (0);
-	}
 	if (b->len != 0)
 		if (operate("pa", a, b, recorder) == 0)
 			return (0);
