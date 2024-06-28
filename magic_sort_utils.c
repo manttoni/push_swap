@@ -16,11 +16,29 @@ static int	max_number(t_stack *stack)
 	return (max);
 }
 
+static int	min_number(t_stack *stack)
+{
+	int				min;
+	unsigned int	i;
+
+	i = 0;
+	min = INT_MAX;
+	while (i < stack->len)
+	{
+		if (top(stack, i) < min)
+			min = top(stack, i);
+		i++;
+	}
+	return (min);
+}
+
 static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 {
 	if (top(b, j) < top(a, i) && top(b, j) > top(a, i - 1))
 		return (1);
 	if (top(b, j) < top(a, i) && top(a, i - 1) == max_number(a))
+		return (1);
+	if (top(b, j) > top(a, i - 1) && top(a, i) == min_number(a))
 		return (1);
 	return (0);
 }

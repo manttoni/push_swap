@@ -6,9 +6,11 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:37:52 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/28 15:54:17 by amaula           ###   ########.fr       */
+/*   Updated: 2024/06/28 17:54:54 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 int	is_ascending(t_stack *stack)
 {
@@ -33,14 +35,21 @@ int	is_ascending(t_stack *stack)
 
 int	get_next_unsorted(t_stack *a)
 {
-	int	i;
+	int				i;
+	unsigned int	least_rotations;
+	int				ret;
 
+	least_rotations = UINT_MAX;
 	i = -1 * (long)a->len / 2;
 	while (i < (long)a->len / 2)
 	{
 		if (top(a, i) > top(a, i + 1))
-			return (i);
+			if (least_rotations > absolute(i))
+			{
+				least_rotations = absolute(i);
+				ret = i;
+			}
 		i++;
 	}
-	return a->len + 1;
+	return (ret);
 }

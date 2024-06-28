@@ -10,6 +10,7 @@ static void	print_operations(t_recorder *recorder)
 		ft_printf("%s\n", recorder->operations[i]);
 		i++;
 	}
+	ft_printf("OPS: %u\n", recorder->len);
 }
 
 static void	free_everything(t_recorder *recorder, t_stack *a, t_stack *b)

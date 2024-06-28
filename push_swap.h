@@ -20,6 +20,7 @@ typedef	struct	s_recorder
 
 void			print(t_stack *a, t_stack *b);
 
+int				get_next_unsorted(t_stack *a);
 int				validate_input(int argc, char **argv);
 void			least_rotations(t_stack *a, t_stack *b, int *rotations);
 int				operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder);

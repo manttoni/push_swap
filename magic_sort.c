@@ -6,14 +6,40 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/27 18:39:36 by amaula           ###   ########.fr       */
+/*   Updated: 2024/06/28 17:54:19 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
+{
+	int	i;
+
+	while (!is_ascending(a))
+	{
+		i = get_next_unsorted(a);
+		while (i < 0)
+		{
+			i++;
+			if (operate("rra", a, b, recorder) == 0)
+				return (0);
+		}
+		while (i > 0)
+		{
+			i--;
+			if (operate("ra", a, b, recorder) == 0)
+				return (0);
+		}
+		if (operate("pb", a, b, recorder) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 /* Push from a to b so that the biggest number stays in a
  * If a is in ascending order (circular), move to next step */
+/*
 static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
@@ -28,7 +54,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 				return (0);
 	}
 	return (1);
-}
+}*/
 
 char	*get_operation2(int *rotations)
 {

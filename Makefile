@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 # Source files
-SRCS = operations.c operations_utils.c push_swap.c validation.c stack_utils.c recorder_utils.c magic_sort.c magic_sort_utils.c
+SRCS = ascension.c operations.c operations_utils.c push_swap.c validation.c stack_utils.c recorder_utils.c magic_sort.c magic_sort_utils.c
 
 # Libraries
 LIBFT = libft/libft.a
