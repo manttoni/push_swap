@@ -1,8 +1,28 @@
 #include "push_swap.h"
 
+static int	max_number(t_stack *stack)
+{
+	int				max;
+	unsigned int	i;
+
+	i = 0;
+	max = INT_MIN;
+	while (i < stack->len)
+	{
+		if (top(stack, i) > max)
+			max = top(stack, i);
+		i++;
+	}
+	return (max);
+}
+
 static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 {
-	return (top(a, i) > top(b, j) && (top(a, i - 1) < top(b, j) || top(a, i) < top(a, i - 1)));
+	if (top(b, j) < top(a, i) && top(b, j) > top(a, i - 1))
+		return (1);
+	if (top(b, j) < top(a, i) && top(a, i - 1) == max_number(a))
+		return (1);
+	return (0);
 }
 
 static void	update_rotations(int *rotations, int i, int j, unsigned int *least)
@@ -13,7 +33,8 @@ static void	update_rotations(int *rotations, int i, int j, unsigned int *least)
 	greater = absolute(i);
 	if (absolute(j) > absolute(i))
 		greater = absolute(j);
-	same_sign = (rotations[0] < 0 && rotations[1] < 0) || (rotations[0] > 0 && rotations[1] > 0);
+	same_sign = rotations[0] < 0 && rotations[1] < 0;
+	same_sign = same_sign || (rotations[0] > 0 && rotations[1] > 0);
 	if (same_sign && *least > greater)
 	{
 		*least = greater;

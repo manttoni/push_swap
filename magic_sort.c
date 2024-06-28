@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   magic_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
+/*   Updated: 2024/06/27 18:39:36 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 /* Push from a to b so that the biggest number stays in a
@@ -10,7 +22,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
 		if (is_ascending(a))
-			break;
+			break ;
 		while (top(a, 0) < top(a, 1) && a->len > 1)
 			if (operate("pb", a, b, recorder) == 0)
 				return (0);
@@ -18,23 +30,8 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 	return (1);
 }
 
-char	*get_operation(int *rotations)
+char	*get_operation2(int *rotations)
 {
-	if (rotations[0] * rotations[1] > 0)
-	{
-		if (rotations[0] > 0)
-		{
-			rotations[0]--;
-			rotations[1]--;
-			return ("rr");
-		}
-		else
-		{
-			rotations[0]++;
-			rotations[1]++;
-			return ("rrr");
-		}
-	}
 	if (rotations[0] > 0)
 	{
 		rotations[0]--;
@@ -58,21 +55,41 @@ char	*get_operation(int *rotations)
 	return (NULL);
 }
 
-/* Rotate stacks, one rotation per stack at a time */
-static int	do_rotations_push(t_stack *a, t_stack *b, int *rotations, t_recorder *recorder)
+char	*get_operation(int *rotations)
 {
-	while (rotations[0] != 0 || rotations[1] != 0)
-		if (operate(get_operation(rotations), a, b, recorder) == 0)
+	if (rotations[0] * rotations[1] > 0)
+	{
+		if (rotations[0] > 0)
+		{
+			rotations[0]--;
+			rotations[1]--;
+			return ("rr");
+		}
+		else
+		{
+			rotations[0]++;
+			rotations[1]++;
+			return ("rrr");
+		}
+	}
+	return (get_operation2(rotations));
+}
+
+/* Rotate stacks, one rotation per stack at a time */
+static int	align_push(t_stack *a, t_stack *b, int *rots, t_recorder *rec)
+{
+	while (rots[0] != 0 || rots[1] != 0)
+		if (operate(get_operation(rots), a, b, rec) == 0)
 			return (0);
 	if (b->len != 0)
-		if (operate("pa", a, b, recorder) == 0)
+		if (operate("pa", a, b, rec) == 0)
 			return (0);
 	return (1);
 }
 
-/* Push numbers to b until a is sorted, then push from b without breaking sortedness
- * Can sort 100 ints in less than 800 operations */
-int     magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
+/* Push numbers to b until a is sorted,
+   then push from b without breaking sortedness*/
+int	magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	int	rotations[2];
 
@@ -83,10 +100,10 @@ int     magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 	while (b->len != 0 || top(a, 0) > top(a, -1))
 	{
 		least_rotations(a, b, rotations);
-		if (do_rotations_push(a, b, rotations, recorder) == 0)
+		if (align_push(a, b, rotations, recorder) == 0)
 			return (0);
 		if (!is_ascending(a))
-			return(0);
+			return (0);
 	}
 	return (1);
 }
