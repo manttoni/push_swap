@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	
 	ar = rng(len);
 	run_permutations(ar, 1, len + 1, &iterations);
-	for (int i = 0; i < len; i++)
+	for (int i = 0; i <= len; i++)
 		free(ar[i]);
 	free(ar);
 	return (0);
