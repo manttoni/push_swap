@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 18:44:32 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/01 19:54:36 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 		if (top(a, 0) > top(a, 1))
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
-		while (top(a, 0) < top(a, 1) && !is_ascending(a))
+		if (is_ascending(a))
+			break ;
+		while (top(a, 0) < top(a, 1))
 			if (operate("pb", a, b, recorder) == 0)
 				return (0);
 	}

@@ -67,8 +67,6 @@ static void	update_rotations(int *rotations, int i, int j, unsigned int *least)
 	}
 }
 
-/* Calculate least rotations to be able to push from b to a so that it stays sorted
- * If b is empty, calculate least rotations to have smallest number at first index */
 void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 {
 	int	i;
