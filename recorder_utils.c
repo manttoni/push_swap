@@ -1,5 +1,19 @@
 #include "push_swap.h"
 
+void	free_recorder(t_recorder *recorder)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < recorder->len)
+	{
+		free(recorder->operations[i]);
+		i++;
+	}
+	free(recorder->operations);
+	free(recorder);
+}
+
 t_recorder	*init_recorder(t_recorder *recorder)
 {
 	recorder = malloc(sizeof(t_recorder));

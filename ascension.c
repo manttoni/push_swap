@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:37:52 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/28 17:54:54 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/01 18:34:15 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	get_next_unsorted(t_stack *a)
 	unsigned int	least_rotations;
 	int				ret;
 
+	ret = 0;
 	least_rotations = UINT_MAX;
 	i = -1 * (long)a->len / 2;
 	while (i < (long)a->len / 2)

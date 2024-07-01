@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:55:32 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 15:47:39 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/01 18:26:19 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ static void	run_permutations(char **ar, int l, int r)
 	if (l == r)
 	{
 		print_ar(ar, r);
-		push_swap(r, ar);
+		t_recorder *result = push_swap(r, ar);
+		ft_printf("Ops: %u\n", result->len);
+		free_recorder(result);
 	}
 	else
 	{

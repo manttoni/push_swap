@@ -1,7 +1,7 @@
 # Main Makefile
 
 # Compiler
-CC = gcc
+CC = cc
 
 # Compiler flags
 CFLAGS = -Wall -Wextra -Werror
@@ -17,7 +17,7 @@ FT_PRINTF = ft_printf/libftprintf.a
 .PHONY: all libs clean fclean re
 
 all: $(LIBFT) $(FT_PRINTF) $(SRCS)
-	$(CC) -g $(CFLAGS) $(SRCS) $(LIBFT) $(FT_PRINTF) -o push_swap
+	$(CC) -g -O2 $(CFLAGS) $(SRCS) $(LIBFT) $(FT_PRINTF) -o push_swap
 
 libs:
 	$(MAKE) -C libft
