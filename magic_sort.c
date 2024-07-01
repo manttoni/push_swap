@@ -6,12 +6,12 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 18:29:40 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/01 18:44:32 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+/*
 static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	int	i;
@@ -36,7 +36,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 	}
 	return (1);
 }
-/*
+*/
 static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
@@ -50,7 +50,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 	}
 	return (1);
 }
-*/
+
 char	*get_operation2(int *rotations)
 {
 	if (rotations[0] > 0)
