@@ -2,10 +2,16 @@
 
 static t_recorder	*finish(t_stack *a, t_stack *b, t_recorder *recorder)
 {
-	free(a->numbers);
-	free(b->numbers);
-	free(a);
-	free(b);
+	if (a)
+	{
+		free(a->numbers);
+		free(a);
+	}
+	if (b)
+	{
+		free(b->numbers);
+		free(b);
+	}
 	return (recorder);
 }
 
@@ -28,14 +34,13 @@ t_recorder	*push_swap(int argc, char **argv)
 	b = NULL;
 	recorder = NULL;
 	if (validate_input(argc, argv) == 0)
-		return (finish(NULL, NULL, recorder));
+		return (finish(a, b, recorder));
 	recorder = init_recorder(recorder);
 	a = init_stack(a, argc - 1);
 	b = init_stack(b, argc - 1);
 	if (!recorder || !a || !b)
 		return (finish(a, b, recorder));
-	populate(a, argc - 1, ++argv);
-	if (magic_sort(a, b, recorder) == 0)
-		return (finish(a, b, recorder));
+	populate(a, argc - 1, argv + 1);
+	magic_sort(a, b, recorder);
 	return (finish(a, b, recorder));
 }
