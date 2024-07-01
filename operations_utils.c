@@ -41,7 +41,6 @@ int	operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder)
 	if (op_success)
 		if (record(recorder, operation) == 0)
 			return (0);
-	print(a, b);
 	return (1);
 }
 

@@ -6,13 +6,13 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/28 17:54:19 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/01 16:51:45 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
+/*static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	int	i;
 
@@ -35,11 +35,8 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 			return (0);
 	}
 	return (1);
-}
+}*/
 
-/* Push from a to b so that the biggest number stays in a
- * If a is in ascending order (circular), move to next step */
-/*
 static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
@@ -47,14 +44,12 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 		if (top(a, 0) > top(a, 1))
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
-		if (is_ascending(a))
-			break ;
-		while (top(a, 0) < top(a, 1) && a->len > 1)
+		while (top(a, 0) < top(a, 1) && !is_ascending(a))
 			if (operate("pb", a, b, recorder) == 0)
 				return (0);
 	}
 	return (1);
-}*/
+}
 
 char	*get_operation2(int *rotations)
 {
@@ -101,7 +96,6 @@ char	*get_operation(int *rotations)
 	return (get_operation2(rotations));
 }
 
-/* Rotate stacks, one rotation per stack at a time */
 static int	align_push(t_stack *a, t_stack *b, int *rots, t_recorder *rec)
 {
 	while (rots[0] != 0 || rots[1] != 0)
@@ -113,8 +107,6 @@ static int	align_push(t_stack *a, t_stack *b, int *rots, t_recorder *rec)
 	return (1);
 }
 
-/* Push numbers to b until a is sorted,
-   then push from b without breaking sortedness*/
 int	magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	int	rotations[2];

@@ -28,7 +28,7 @@ int				record(t_recorder *recorder, char *operation);
 t_recorder		*init_recorder(t_recorder *recorder);
 t_stack			*init_stack(t_stack *stack, int stack_max);
 void			find_simultaneous(t_recorder *recorder);
-void			push_swap(t_stack *a, t_stack *b, t_recorder *recorder);
+t_recorder		*push_swap(int argc, char **argv);
 int				swap(t_stack *stack);
 int				push(t_stack *from, t_stack *to);
 int				rotate(t_stack *stack);
