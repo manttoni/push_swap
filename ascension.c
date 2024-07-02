@@ -32,25 +32,3 @@ int	is_ascending(t_stack *stack)
 	}
 	return (1);
 }
-
-int	get_next_unsorted(t_stack *a)
-{
-	int				i;
-	unsigned int	least_rotations;
-	int				ret;
-
-	ret = 0;
-	least_rotations = UINT_MAX;
-	i = -1 * (long)a->len / 2;
-	while (i < (long)a->len / 2)
-	{
-		if (top(a, i) > top(a, i + 1))
-			if (least_rotations > absolute(i))
-			{
-				least_rotations = absolute(i);
-				ret = i;
-			}
-		i++;
-	}
-	return (ret);
-}
