@@ -16,11 +16,26 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
-		/*if (top(a, 0) > top(a, 1))
+		if (top(a, -1) == get_lesser(a) || get_lesser(a) == INT_MIN)
+		{
+			if (b->len > 1 && (top(b, -1) == get_greater(b) || get_greater(b) == INT_MAX))
+			{
+				if (operate("rr", a, b, recorder) == 0)
+					return (0);
+			}
+			else
+			{
+				if (operate("ra", a, b, recorder) == 0)
+					return (0);
+			}
+			continue ;
+		}
+		if (top(a, 1) == get_lesser(a))
+		{
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
-		if (is_ascending(a))
-			break ;*/
+			continue ;
+		}
 		if (operate("pb", a, b, recorder) == 0)
 			return (0);
 	}

@@ -20,7 +20,8 @@ typedef	struct	s_recorder
 
 void			print(t_stack *a, t_stack *b);
 
-int			top_sequence(t_stack *a);
+int			get_greater(t_stack *b);
+int			get_lesser(t_stack *a);
 void			free_recorder(t_recorder *recorder);
 int				get_next_unsorted(t_stack *a);
 int				validate_input(int argc, char **argv);
