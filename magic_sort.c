@@ -11,41 +11,16 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
-{
-	int	i;
 
-	while (!is_ascending(a))
-	{
-		i = get_next_unsorted(a);
-		while (i < 0)
-		{
-			i++;
-			if (operate("rra", a, b, recorder) == 0)
-				return (0);
-		}
-		while (i > 0)
-		{
-			i--;
-			if (operate("ra", a, b, recorder) == 0)
-				return (0);
-		}
-		if (operate("pb", a, b, recorder) == 0)
-			return (0);
-	}
-	return (1);
-}
-*/
 static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
-		if (top(a, 0) > top(a, 1))
+		/*if (top(a, 0) > top(a, 1))
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
 		if (is_ascending(a))
-			break ;
+			break ;*/
 		if (operate("pb", a, b, recorder) == 0)
 			return (0);
 	}

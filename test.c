@@ -53,6 +53,12 @@ static void	run_permutations(char **ar, int l, int r, int *iterations)
 			(*iterations)--;	
 		print_ar(ar, r);
 		t_recorder *result = push_swap(r, ar);
+		if (result == NULL)
+		{
+			ft_printf("Error\n");
+			*iterations = 0;
+			return ;
+		}
 		print_result(result);
 		free_recorder(result);
 
@@ -101,6 +107,11 @@ static void	random_input_permutations(int argc, char **argv)
 static void	input_input(int argc, char **argv)
 {
 	t_recorder	*result = push_swap(argc, argv);
+	if (result == NULL)
+	{
+		ft_printf("Error\n");
+		return ;
+	}
 	print_result(result);
 	free_recorder(result);
 }
