@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static int	max_number(t_stack *stack)
+int	stack_max(t_stack *stack)
 {
 	int				max;
 	unsigned int	i;
@@ -16,7 +16,7 @@ static int	max_number(t_stack *stack)
 	return (max);
 }
 
-static int	min_number(t_stack *stack)
+int	stack_min(t_stack *stack)
 {
 	int				min;
 	unsigned int	i;
@@ -36,9 +36,9 @@ static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 {
 	if (top(b, j) < top(a, i) && top(b, j) > top(a, i - 1))
 		return (1);
-	if (top(b, j) < top(a, i) && top(a, i - 1) == max_number(a))
+	if (top(b, j) < top(a, i) && top(a, i - 1) == stack_max(a))
 		return (1);
-	if (top(b, j) > top(a, i - 1) && top(a, i) == min_number(a))
+	if (top(b, j) > top(a, i - 1) && top(a, i) == stack_min(a))
 		return (1);
 	return (0);
 }

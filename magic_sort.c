@@ -16,28 +16,29 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
-		if (top(a, -1) == get_lesser(a) || get_lesser(a) == INT_MIN)
+		if (a->len < 10)
 		{
-			if (b->len > 1 && (top(b, -1) == get_greater(b) || get_greater(b) == INT_MAX))
+			if (top(a, 0) > top(a, 1))
 			{
-				if (operate("rr", a, b, recorder) == 0)
-					return (0);
+				if (b->len > 0 && top(b, 0) < top(b, 1))
+					operate("ss", a, b, recorder);
+				else
+					operate("sa", a, b, recorder);
+				continue ;
 			}
-			else
+			if (top(a, 0) > top(a, -1))
 			{
-				if (operate("ra", a, b, recorder) == 0)
-					return (0);
+				if (b->len > 0 && top(b, 0) < top(b, -1))
+					operate("rr", a, b, recorder);
+				else
+					operate("ra", a, b, recorder);
+				continue ;
 			}
-			continue ;
+
+
 		}
-		if (top(a, 1) == get_lesser(a))
-		{
-			if (operate("sa", a, b, recorder) == 0)
-				return (0);
-			continue ;
-		}
-		if (operate("pb", a, b, recorder) == 0)
-			return (0);
+
+		operate("pb", a, b, recorder);
 	}
 	return (1);
 }
@@ -111,8 +112,9 @@ int	magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 		least_rotations(a, b, rotations);
 		if (align_push(a, b, rotations, recorder) == 0)
 			return (0);
-		if (!is_ascending(a))
-			return (0);
+
 	}
+	if (!is_ascending(a))
+		return (0);
 	return (1);
 }
