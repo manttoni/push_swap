@@ -44,9 +44,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 		if (top(a, 0) > top(a, 1))
 			if (operate("sa", a, b, recorder) == 0)
 				return (0);
-		if (is_ascending(a))
-			break ;
-		while (top(a, 0) < top(a, 1))
+		while (top(a, 0) < top(a, 1) && !is_ascending(a))
 			if (operate("pb", a, b, recorder) == 0)
 				return (0);
 	}

@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 #include <time.h>
+#include <stdio.h>
+
+int	print_ops = 0;
 
 static void	swap_str(char **x, char **y)
 {
@@ -29,6 +32,14 @@ static void	print_ar(char **ar, int len)
 	ft_printf("\n");
 }
 
+static void	print_result(t_recorder *result)
+{
+	if (print_ops == 1)
+		for (unsigned int i = 0; i < result->len; ++i)
+			ft_printf("%s\n", result->operations[i]);
+	ft_printf("Ops: %u\n", result->len);
+}	
+
 static void	run_permutations(char **ar, int l, int r, int *iterations)
 {
 	if (*iterations == 0)
@@ -42,7 +53,7 @@ static void	run_permutations(char **ar, int l, int r, int *iterations)
 			(*iterations)--;	
 		print_ar(ar, r);
 		t_recorder *result = push_swap(r, ar);
-		ft_printf("Ops: %u\n", result->len);
+		print_result(result);
 		free_recorder(result);
 
 	}
@@ -72,10 +83,8 @@ static char	**rng(int len)
 	return rstr;
 }
 
-int main(int argc, char **argv)
+static void	random_input_permutations(int argc, char **argv)
 {
-	if (argc < 2)
-		return (1);
 	int		len = ft_atoi(argv[1]);
 	char	**ar;
 	int		iterations = -1;
@@ -87,5 +96,33 @@ int main(int argc, char **argv)
 	for (int i = 0; i <= len; i++)
 		free(ar[i]);
 	free(ar);
+}
+
+static void	input_input(int argc, char **argv)
+{
+	t_recorder	*result = push_swap(argc, argv);
+	print_result(result);
+	free_recorder(result);
+}
+
+int main(int argc, char **argv)
+{
+	clock_t begin = clock();
+	if (argc < 2)
+		return (1);
+	if (ft_strncmp("pops", argv[1], 4) == 0)
+	{
+		print_ops = 1;
+		argv++;
+		argc--;
+	}
+	if (argc < 4)
+		random_input_permutations(argc, argv);
+	else
+		input_input(argc, argv);
+	
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("%f s\n", time_spent);
 	return (0);
 }
