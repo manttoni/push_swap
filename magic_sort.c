@@ -16,28 +16,6 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
-		if (a->len < 10)
-		{
-			if (top(a, 0) > top(a, 1))
-			{
-				if (b->len > 0 && top(b, 0) < top(b, 1))
-					operate("ss", a, b, recorder);
-				else
-					operate("sa", a, b, recorder);
-				continue ;
-			}
-			if (top(a, 0) > top(a, -1))
-			{
-				if (b->len > 0 && top(b, 0) < top(b, -1))
-					operate("rr", a, b, recorder);
-				else
-					operate("ra", a, b, recorder);
-				continue ;
-			}
-
-
-		}
-
 		operate("pb", a, b, recorder);
 	}
 	return (1);
