@@ -16,7 +16,7 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
-		if (top(a, 0) <= stack_mean(a))
+		if (golden_cut(a))
 			operate("pb", a, b, recorder);
 		else
 			operate("ra", a, b, recorder);

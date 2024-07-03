@@ -80,6 +80,7 @@ static char	**rng(int len)
 	for (int i = 0; i <= len; i++)
 		rstr[i] = ft_itoa(i);
 	srand(time(NULL));
+	usleep(1000000);
 	for (; len > 0; len--)
 	{
 		int r = rand() % len + 1;
