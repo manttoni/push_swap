@@ -20,6 +20,7 @@ typedef	struct	s_recorder
 
 void			print(t_stack *a, t_stack *b);
 
+int			stack_mean(t_stack *stack);
 int			stack_min(t_stack *stack);
 int			stack_max(t_stack *stack);
 int			get_greater(t_stack *b);

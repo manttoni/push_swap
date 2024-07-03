@@ -34,6 +34,23 @@ int	top(t_stack *stack, int index)
 	return (stack->numbers[index % stack->len]);
 }
 
+int	stack_mean(t_stack *stack)
+{
+	int		mean;
+	int		sum;
+	unsigned int	i;
+
+	i = 0;
+	sum = 0;
+	while (i < stack->len)
+	{
+		sum += top(stack, i);
+		i++;
+	}
+	mean = sum / stack->len;
+	return (mean);
+}
+
 unsigned int	absolute(int i)
 {
 	if (i < 0)
