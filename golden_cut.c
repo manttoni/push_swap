@@ -21,7 +21,9 @@ int	golden_cut(t_stack *stack)
 	int		cut;
 	unsigned int	index;
 
-	cut = 70;
+	if (stack->len < 10)
+		return (1);
+	cut = 38;
 	index = get_index(stack);
 	return (index < cut * stack->len / 100);
 }
