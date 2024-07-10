@@ -6,13 +6,15 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:55:32 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 19:50:24 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:09:11 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <time.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdint.h>
 
 int	print_ops = 0;
 
@@ -79,8 +81,12 @@ static char	**rng(int len)
 	char **rstr = malloc((1 + len) * sizeof(char*));
 	for (int i = 0; i <= len; i++)
 		rstr[i] = ft_itoa(i);
-	srand(time(NULL));
-	usleep(1000000);
+	//srand(time(NULL));
+
+	struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    srand((unsigned int)(ts.tv_nsec ^ (uintptr_t)&len ^ getpid()));
+
 	for (; len > 0; len--)
 	{
 		int r = rand() % len + 1;
@@ -90,13 +96,9 @@ static char	**rng(int len)
 	return rstr;
 }
 
-static void	random_input_permutations(int argc, char **argv)
+static void	random_input_permutations(int iterations, int len)
 {
-	int		len = ft_atoi(argv[1]);
 	char	**ar;
-	int		iterations = -1;
-	if (argc > 2)
-		iterations = ft_atoi(argv[2]);
 	
 	ar = rng(len);
 	run_permutations(ar, 1, len + 1, &iterations);
@@ -117,9 +119,28 @@ static void	input_input(int argc, char **argv)
 	free_recorder(result);
 }
 
+static void random_all(int iterations, int len)
+{
+	char **random_list;
+	t_recorder *result;
+
+	while (iterations-- > 0)
+	{
+		random_list = rng(len);
+		result = push_swap(len, random_list);
+		print_ar(random_list, len);
+		print_result(result);
+		free_recorder(result);
+		for(int i = 0; i <= len; ++i)
+			free(random_list[i]);
+		free(random_list);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	clock_t begin = clock();
+	int iterations = 1;
 	if (argc < 2)
 		return (1);
 	if (ft_strncmp("pops", argv[1], 4) == 0)
@@ -128,8 +149,20 @@ int main(int argc, char **argv)
 		argv++;
 		argc--;
 	}
-	if (argc < 4)
-		random_input_permutations(argc, argv);
+	if (ft_strncmp("perm", argv[1], 4) == 0)
+	{
+		iterations = ft_atoi(argv[2]);
+		argv += 2;
+		argc -= 2;
+		random_input_permutations(iterations, ft_atoi(argv[1]));
+	}
+	else if (ft_strncmp("rand", argv[1], 4) == 0)
+	{
+		iterations = ft_atoi(argv[2]);
+		argv += 2;
+		argc -= 2;
+		random_all(iterations, ft_atoi(argv[1]));
+	}
 	else
 		input_input(argc, argv);
 	

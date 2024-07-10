@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   golden_cut.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 14:52:46 by amaula            #+#    #+#             */
+/*   Updated: 2024/07/10 15:22:35 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static unsigned int	get_index(t_stack *stack)
@@ -18,11 +30,9 @@ static unsigned int	get_index(t_stack *stack)
 
 int	golden_cut(t_stack *stack)
 {
-	int		cut;
+	int				cut;
 	unsigned int	index;
 
-	if (stack->len < 10)
-		return (1);
 	cut = 38;
 	index = get_index(stack);
 	return (index < cut * stack->len / 100);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   magic_sort_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 14:53:55 by amaula            #+#    #+#             */
+/*   Updated: 2024/07/10 16:08:03 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
@@ -19,13 +31,9 @@ static int	is_aligned(t_stack *a, t_stack *b, int i, int j)
 
 static unsigned int	get_rotations(int i, int j)
 {
-	int		both_negative;
-	int		both_positive;
 	unsigned int	greater;
 
-	both_negative = i < 0 && j < 0;
-	both_positive = i > 0 && j > 0;
-	if (both_negative || both_positive)
+	if (i * j > 0)
 	{
 		greater = absolute(i);
 		if (absolute(j) > absolute(i))
@@ -37,8 +45,8 @@ static unsigned int	get_rotations(int i, int j)
 
 void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 {
-	int	i;
-	int	j;
+	int				i;
+	int				j;
 	unsigned int	least;
 
 	least = UINT_MAX;

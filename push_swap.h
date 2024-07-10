@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 14:55:07 by amaula            #+#    #+#             */
+/*   Updated: 2024/07/10 15:48:05 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -5,13 +17,13 @@
 # include "libft/libft.h"
 # include <limits.h>
 
-typedef struct	s_stack
+typedef struct s_stack
 {
-	int		*numbers;
+	int				*numbers;
 	unsigned int	len;
 }	t_stack;
 
-typedef	struct	s_recorder
+typedef struct s_recorder
 {
 	char			**operations;
 	unsigned int	len;
@@ -20,21 +32,16 @@ typedef	struct	s_recorder
 
 void			print(t_stack *a, t_stack *b);
 
-int			golden_cut(t_stack *stack);
-int			stack_mean(t_stack *stack);
-int			stack_min(t_stack *stack);
-int			stack_max(t_stack *stack);
-int			get_greater(t_stack *b);
-int			get_lesser(t_stack *a);
+int				golden_cut(t_stack *stack);
+int				stack_min(t_stack *stack);
+int				stack_max(t_stack *stack);
 void			free_recorder(t_recorder *recorder);
-int				get_next_unsorted(t_stack *a);
 int				validate_input(int argc, char **argv);
 void			least_rotations(t_stack *a, t_stack *b, int *rotations);
-int				operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder);
+int				operate(char *op, t_stack *a, t_stack *b, t_recorder *rec);
 int				record(t_recorder *recorder, char *operation);
 t_recorder		*init_recorder(t_recorder *recorder);
 t_stack			*init_stack(t_stack *stack, int stack_max);
-void			find_simultaneous(t_recorder *recorder);
 t_recorder		*push_swap(int argc, char **argv);
 int				swap(t_stack *stack);
 int				push(t_stack *from, t_stack *to);

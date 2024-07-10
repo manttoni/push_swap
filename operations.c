@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:18:28 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/27 18:18:55 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/09 14:50:04 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 static void	shift(t_stack *stack, int direction)
 {
 	unsigned int	i;
+
 	if (stack->len == 0)
-		return;
+		return ;
 	if (direction == RIGHT)
 	{
 		i = stack->len - 1;

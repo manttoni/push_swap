@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 14:51:14 by amaula            #+#    #+#             */
+/*   Updated: 2024/07/09 14:51:18 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static t_recorder	*finish(t_stack *a, t_stack *b, t_recorder *recorder)
@@ -27,7 +39,7 @@ static void	populate(t_stack *a, unsigned int max_stack, char **numbers)
 t_recorder	*push_swap(int argc, char **argv)
 {
 	t_stack		*a;
-	t_stack 	*b;
+	t_stack		*b;
 	t_recorder	*recorder;
 
 	a = NULL;

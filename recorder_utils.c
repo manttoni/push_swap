@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   recorder_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 14:52:00 by amaula            #+#    #+#             */
+/*   Updated: 2024/07/09 14:52:01 by amaula           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	free_recorder(t_recorder *recorder)
@@ -19,7 +31,7 @@ t_recorder	*init_recorder(t_recorder *recorder)
 	recorder = malloc(sizeof(t_recorder));
 	if (recorder == NULL)
 		return (NULL);
-	recorder->operations = malloc(sizeof(char*));
+	recorder->operations = malloc(sizeof(char *));
 	if (recorder->operations == NULL)
 		return (NULL);
 	recorder->len = 0;
@@ -33,7 +45,7 @@ static void	*ft_realloc_operations(t_recorder *recorder, size_t new_size)
 	unsigned int	i;
 
 	i = 0;
-	new_operations = malloc((new_size) * sizeof(char*));
+	new_operations = malloc((new_size) * sizeof(char *));
 	if (new_operations == NULL)
 		return (NULL);
 	while (i < recorder->len)

@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:30:07 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 19:54:36 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:40:02 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
+		if (a->len < 4 && top(a, 0) > top(a, 1))
+		{
+			operate("sa", a, b, recorder);
+			continue ;
+		}
+		if (a->len < 10)
+		{
+			operate("pb", a, b, recorder);
+			continue ;
+		}
 		if (golden_cut(a))
 			operate("pb", a, b, recorder);
 		else
@@ -93,7 +103,6 @@ int	magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 		least_rotations(a, b, rotations);
 		if (align_push(a, b, rotations, recorder) == 0)
 			return (0);
-
 	}
 	if (!is_ascending(a))
 		return (0);

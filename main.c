@@ -6,13 +6,13 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:52:12 by amaula            #+#    #+#             */
-/*   Updated: 2024/07/01 18:27:27 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/09 14:49:35 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_recorder		*result;
 	unsigned int	i;

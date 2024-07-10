@@ -6,7 +6,7 @@
 /*   By: amaula <amaula@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:19:19 by amaula            #+#    #+#             */
-/*   Updated: 2024/06/28 15:43:34 by amaula           ###   ########.fr       */
+/*   Updated: 2024/07/10 15:52:47 by amaula           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_stack	*init_stack(t_stack *stack, int stack_max)
 {
 	stack = malloc(sizeof(t_stack));
-	if (!stack)
+	if (stack == NULL)
 		return (NULL);
 	stack->len = 0;
 	stack->numbers = malloc(stack_max * sizeof(int));
@@ -34,23 +34,6 @@ int	top(t_stack *stack, int index)
 	return (stack->numbers[index % stack->len]);
 }
 
-int	stack_mean(t_stack *stack)
-{
-	int		mean;
-	int		sum;
-	unsigned int	i;
-
-	i = 0;
-	sum = 0;
-	while (i < stack->len)
-	{
-		sum += top(stack, i);
-		i++;
-	}
-	mean = sum / stack->len;
-	return (mean);
-}
-
 unsigned int	absolute(int i)
 {
 	if (i < 0)
@@ -58,34 +41,34 @@ unsigned int	absolute(int i)
 	return (i);
 }
 
-int     stack_max(t_stack *stack)
+int	stack_max(t_stack *stack)
 {
-        int                             max;
-        unsigned int    i;
+	int				max;
+	unsigned int	i;
 
-        i = 0;
-        max = INT_MIN;
-        while (i < stack->len)
-        {
-                if (top(stack, i) > max)
-                        max = top(stack, i);
-                i++;
-        }
-        return (max);
+	i = 0;
+	max = INT_MIN;
+	while (i < stack->len)
+	{
+		if (top(stack, i) > max)
+			max = top(stack, i);
+		i++;
+	}
+	return (max);
 }
 
-int     stack_min(t_stack *stack)
+int	stack_min(t_stack *stack)
 {
-        int                             min;
-        unsigned int    i;
+	int				min;
+	unsigned int	i;
 
-        i = 0;
-        min = INT_MAX;
-        while (i < stack->len)
-        {
-                if (top(stack, i) < min)
-                        min = top(stack, i);
-                i++;
-        }
-        return (min);
+	i = 0;
+	min = INT_MAX;
+	while (i < stack->len)
+	{
+		if (top(stack, i) < min)
+			min = top(stack, i);
+		i++;
+	}
+	return (min);
 }
