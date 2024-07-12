@@ -67,3 +67,24 @@ void	least_rotations(t_stack *a, t_stack *b, int *rotations)
 		i++;
 	}
 }
+
+int     is_ascending(t_stack *stack)
+{
+        unsigned int    i;
+        int                             flag;
+
+        flag = 0;
+        i = 0;
+        while (i < stack->len)
+        {
+                if (top(stack, i) > top(stack, i + 1))
+                {
+                        if (flag == 1)
+                                return (0);
+                        else
+                                flag = 1;
+                }
+                i++;
+        }
+        return (1);
+}
