@@ -43,6 +43,8 @@ int	main(int argc, char **argv)
 	int		len;
 	char		**numbers;
 
+	if (argc == 1)
+		return (1);
 	if (argc == 2 && ft_strchr(argv[1], ' '))
 	{
 		len = ft_countchar(argv[1], ' ') + 1;
