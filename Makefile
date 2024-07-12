@@ -38,7 +38,7 @@ clean:
 fclean: clean
 	$(MAKE) -C libft fclean
 	$(MAKE) -C ft_printf fclean
-	rm -f push_swap
+	rm -f push_swap test_swap
 
 re: fclean all
 

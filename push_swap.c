@@ -21,6 +21,16 @@ static void	populate(t_stack *a, unsigned int max_stack, char **numbers)
 	}
 }
 
+static void	free_all(t_recorder *r, t_stack *a, t_stack *b)
+{
+	if (r)
+		free_recorder(r);
+	if (a)
+		free_stack(a);
+	if (b)
+		free_stack(b);
+}
+
 t_recorder	*push_swap(int len, char **numbers)
 {
 	t_stack		*a;
@@ -30,19 +40,11 @@ t_recorder	*push_swap(int len, char **numbers)
 	if (validate_input(len, numbers) == 0)
 		return (NULL);
 	recorder = init_recorder();
-	if (!recorder)
-		return (NULL);
 	a = init_stack(len);
-	if (!a)
-	{
-		free_recorder(recorder);
-		return (NULL);
-	}
 	b = init_stack(len);
-	if (!b)
+	if (!recorder || !a || !b)
 	{
-		free_recorder(recorder);
-		free_stack(a);
+		free_all(recorder, a ,b);
 		return (NULL);
 	}
 	populate(a, len, numbers);
