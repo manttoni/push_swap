@@ -122,7 +122,7 @@ static void random_all(int iterations, int len)
 		print_ar(random_list, len);
 		print_result(result);
 		free_recorder(result);
-		for(int i = 0; i <= len; ++i)
+		for(int i = 0; i < len; ++i)
 			free(random_list[i]);
 		free(random_list);
 	}
