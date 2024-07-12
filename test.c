@@ -29,7 +29,7 @@ static void	swap_str(char **x, char **y)
 static void	print_ar(char **ar, int len)
 {
 	ft_printf("\nSorting:");
-	for (int i = 1; i < len; ++i)
+	for (int i = 0; i < len; ++i)
 		ft_printf(" %s", ar[i]);
 	ft_printf("\n");
 }
@@ -42,35 +42,26 @@ static void	print_result(t_recorder *result)
 	ft_printf("Ops: %u\n", result->len);
 }	
 
-static void	run_permutations(char **ar, int l, int r, int *iterations)
+static void	run_permutations(char **ar, int l, int r)
 {
-	if (*iterations == 0)
-		return ;
 	if (l == r)
 	{
-		ft_printf("Iterations: %d\n", *iterations);
-		if (*iterations == 0)
-			return ;
-		else if (*iterations > 0)
-			(*iterations)--;	
 		print_ar(ar, r);
 		t_recorder *result = push_swap(r, ar);
 		if (result == NULL)
 		{
 			ft_printf("Error\n");
-			*iterations = 0;
 			return ;
 		}
 		print_result(result);
 		free_recorder(result);
-
 	}
 	else
 	{
 		for (int i = l; i < r; ++i)
 		{
 			swap_str((&ar[l]), (&ar[i]));
-			run_permutations(ar, l + 1, r, iterations);
+			run_permutations(ar, l + 1, r);
 			swap_str((&ar[l]), (&ar[i]));
 		}
 	}
@@ -78,9 +69,9 @@ static void	run_permutations(char **ar, int l, int r, int *iterations)
 
 static char	**rng(int len)
 {
-	char **rstr = malloc((1 + len) * sizeof(char*));
-	for (int i = 0; i <= len; i++)
-		rstr[i] = ft_itoa(i);
+	char **rstr = malloc((len) * sizeof(char*));
+	for (int i = 0; i < len; i++)
+		rstr[i] = ft_itoa(i + 1);
 	//srand(time(NULL));
 
 	struct timespec ts;
@@ -89,20 +80,20 @@ static char	**rng(int len)
 
 	for (; len > 0; len--)
 	{
-		int r = rand() % len + 1;
-		swap_str(&rstr[r], &rstr[len]);
+		int r = rand() % len;
+		swap_str(&rstr[r], &rstr[len - 1]);
 	}
 
 	return rstr;
 }
 
-static void	random_input_permutations(int iterations, int len)
+static void	random_input_permutations(int len)
 {
 	char	**ar;
 	
 	ar = rng(len);
-	run_permutations(ar, 1, len + 1, &iterations);
-	for (int i = 0; i <= len; i++)
+	run_permutations(ar, 0, len);
+	for (int i = 0; i < len; i++)
 		free(ar[i]);
 	free(ar);
 }
@@ -151,10 +142,9 @@ int main(int argc, char **argv)
 	}
 	if (ft_strncmp("perm", argv[1], 4) == 0)
 	{
-		iterations = ft_atoi(argv[2]);
-		argv += 2;
-		argc -= 2;
-		random_input_permutations(iterations, ft_atoi(argv[1]));
+		argv += 1;
+		argc -= 1;
+		random_input_permutations(ft_atoi(argv[1]));
 	}
 	else if (ft_strncmp("rand", argv[1], 4) == 0)
 	{
@@ -164,7 +154,7 @@ int main(int argc, char **argv)
 		random_all(iterations, ft_atoi(argv[1]));
 	}
 	else
-		input_input(argc, argv);
+		input_input(argc - 1, argv + 1);
 	
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
