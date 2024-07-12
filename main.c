@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 	int		len;
 	char		**numbers;
 
-	if (argc == 1)
+	if (argc == 1 || ft_strlen(argv[1]) == 0)
 		return (1);
 	if (argc == 2 && ft_strchr(argv[1], ' '))
 	{
