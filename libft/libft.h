@@ -21,6 +21,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int	ft_countchar(char *str, char c);
 long	ft_strtol(const char *str);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

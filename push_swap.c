@@ -12,21 +12,6 @@
 
 #include "push_swap.h"
 
-static t_recorder	*finish(t_stack *a, t_stack *b, t_recorder *recorder)
-{
-	if (a)
-	{
-		free(a->numbers);
-		free(a);
-	}
-	if (b)
-	{
-		free(b->numbers);
-		free(b);
-	}
-	return (recorder);
-}
-
 static void	populate(t_stack *a, unsigned int max_stack, char **numbers)
 {
 	while (a->len < max_stack)
@@ -36,23 +21,33 @@ static void	populate(t_stack *a, unsigned int max_stack, char **numbers)
 	}
 }
 
-t_recorder	*push_swap(int argc, char **argv)
+t_recorder	*push_swap(int len, char **numbers)
 {
 	t_stack		*a;
 	t_stack		*b;
 	t_recorder	*recorder;
 
-	a = NULL;
-	b = NULL;
-	recorder = NULL;
-	if (validate_input(argc, argv) == 0)
-		return (finish(a, b, recorder));
-	recorder = init_recorder(recorder);
-	a = init_stack(a, argc - 1);
-	b = init_stack(b, argc - 1);
-	if (!recorder || !a || !b)
-		return (finish(a, b, recorder));
-	populate(a, argc - 1, argv + 1);
+	if (validate_input(len, numbers) == 0)
+		return (NULL);
+	recorder = init_recorder();
+	if (!recorder)
+		return (NULL);
+	a = init_stack(len);
+	if (!a)
+	{
+		free_recorder(recorder);
+		return (NULL);
+	}
+	b = init_stack(len);
+	if (!b)
+	{
+		free_recorder(recorder);
+		free_stack(a);
+		return (NULL);
+	}
+	populate(a, len, numbers);
 	magic_sort(a, b, recorder);
-	return (finish(a, b, recorder));
+	free_stack(a);
+	free_stack(b);
+	return (recorder);
 }

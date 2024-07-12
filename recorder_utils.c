@@ -26,14 +26,19 @@ void	free_recorder(t_recorder *recorder)
 	free(recorder);
 }
 
-t_recorder	*init_recorder(t_recorder *recorder)
+t_recorder	*init_recorder(void)
 {
+	t_recorder	*recorder;
+
 	recorder = malloc(sizeof(t_recorder));
 	if (recorder == NULL)
 		return (NULL);
 	recorder->operations = malloc(sizeof(char *));
 	if (recorder->operations == NULL)
+	{
+		free(recorder);
 		return (NULL);
+	}
 	recorder->len = 0;
 	recorder->allocated = 1;
 	return (recorder);

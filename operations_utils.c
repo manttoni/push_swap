@@ -68,8 +68,13 @@ int	operate(char *operation, t_stack *a, t_stack *b, t_recorder *recorder)
 		op_success = operate_b(operation, a, b);
 	else
 		op_success = operate_both(operation, a, b);
-	if (op_success)
-		if (record(recorder, operation) == 0)
-			return (0);
+	if (op_success == 0)
+		return (1);
+	if (record(recorder, operation) == 0)
+	{
+		free_recorder(recorder);
+		recorder = NULL;
+		return (0);
+	}
 	return (1);
 }

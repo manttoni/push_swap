@@ -16,6 +16,8 @@ static int	pusher(t_stack *a, t_stack *b, t_recorder *recorder)
 {
 	while (!is_ascending(a))
 	{
+		if (recorder == NULL)
+			return (0);
 		if (a->len < 4 && top(a, 0) > top(a, 1))
 		{
 			operate("sa", a, b, recorder);
@@ -104,7 +106,5 @@ int	magic_sort(t_stack *a, t_stack *b, t_recorder *recorder)
 		if (align_push(a, b, rotations, recorder) == 0)
 			return (0);
 	}
-	if (!is_ascending(a))
-		return (0);
 	return (1);
 }

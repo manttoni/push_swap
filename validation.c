@@ -30,18 +30,18 @@ static int	is_integer(char *str)
 	return (1);
 }
 
-static int	all_unique(int argc, char **argv)
+static int	all_unique(int len, char **numbers)
 {
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 1;
-	while (i < argc)
+	while (i < len)
 	{
-		while (i + j < argc)
+		while (i + j < len)
 		{
-			if (ft_strncmp(argv[i], argv[i + j], 12) == 0)
+			if (ft_strncmp(numbers[i], numbers[i + j], 12) == 0)
 				return (0);
 			j++;
 		}
@@ -50,18 +50,16 @@ static int	all_unique(int argc, char **argv)
 	return (1);
 }
 
-int	validate_input(int argc, char **argv)
+int	validate_input(int len, char **numbers)
 {
 	int	i;
 
-	if (argc == 1)
-		return (0);
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (i < len)
 	{
-		if (!is_integer(argv[i]))
+		if (!is_integer(numbers[i]))
 			return (0);
 		i++;
 	}
-	return (all_unique(argc, argv));
+	return (all_unique(len, numbers));
 }
